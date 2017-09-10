@@ -20,6 +20,6 @@ public class ConnectionInfo
     }
     public static ConnectionInfo MatchMakerConnectionInfo()
     {
-        return new ConnectionInfo(AppConfig.PortOfMatchMaker);
+        return new ConnectionInfo(AppConfig.PortOfMatchMaker,AppConfig.IpAddressOfMatchMaker);
     }
 }

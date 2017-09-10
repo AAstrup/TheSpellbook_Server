@@ -19,7 +19,7 @@ namespace MatchMaker
         public MatchMakerCore(ILogger logger,Server_MessageSender sender)
         {
             matchThreads = new List<Thread>();
-            nextport = AppConfig.PortOfMatchMaker + 1;
+            nextport = AppConfig.FirstPortOfMatches;
             this.sender = sender;
             this.logger = logger;
         }
