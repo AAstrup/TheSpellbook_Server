@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatchMaker
+namespace Match
 {
     /// <summary>
     /// This class is created for the new thread that handles the match
@@ -23,13 +23,13 @@ namespace MatchMaker
 
         public void ThreadStart()
         {
-            IMessageHandler matchGameHandler = new MatchGameHandler(logger);
+            GameEngine gameEngine = new GameEngine(p1.info,p2.info);
+            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,gameEngine);
             ServerCore server = new ServerCore(matchGameHandler,new ConnectionInfo(port));
+            matchGameHandler.Init(server.messageSender);
             while (true)
             {
                 server.Update();
-                if(server.clientManager.GetClients().Count > 0)
-                    logger.Log("Match has gathered " + server.clientManager.GetClients().Count + " players");
             }
         }
     }

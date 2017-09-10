@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Match;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -34,7 +35,6 @@ namespace MatchMaker
             {
                 var p1 = list[0];
                 list.RemoveAt(0);
-
                 var p2 = list[0];
                 list.RemoveAt(0);
 
@@ -54,8 +54,9 @@ namespace MatchMaker
                 ip = AppConfig.IpOfMatch,
                 port = nextport
             };
+            Console.WriteLine("Sending update to players new match with port " + nextport);
             sender.Send(update,p1);
-            sender.Send(update,p2);
+            sender.Send(update, p2);
         }
     }
 }

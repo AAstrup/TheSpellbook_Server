@@ -8,11 +8,11 @@ using System.Collections.Generic;
 /// </summary>
 public class Server_MessageHandler :IMessageHandler {
 
-    MessengeHandler_Request_JoinQueue handler_Message_Request_JoinQueue;
+    MessageHandler_Request_JoinQueue handler_Message_Request_JoinQueue;
 
     public void Setup(ServerCore server)
     {
-        handler_Message_Request_JoinQueue = new MessengeHandler_Request_JoinQueue(server);
+        handler_Message_Request_JoinQueue = new MessageHandler_Request_JoinQueue(server);
     }
     /// <summary>
     /// The method responsible for getting a serialized object 

@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="MessageHandlers\MessengeHandler_Request_JoinQueue.cs" />
+    <Compile Include="MessageHandlers\MessageHandler_Request_JoinQueue.cs" />
     <Compile Include="MatchMakerCore.cs" />
     <Compile Include="MessageHandlers\Server_MessageHandler.cs" />
     <Compile Include="Program.cs" />

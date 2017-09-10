@@ -9,9 +9,11 @@ using System.Collections.Generic;
 public class Message_Response_InQueue
 {
     public string message;
+    public Shared_PlayerInfo playerinfoWithGUID;
 
-    public Message_Response_InQueue(string message)
+    public Message_Response_InQueue(string message, Shared_PlayerInfo playerinfoWithGUID)
     {
         this.message = message;
+        this.playerinfoWithGUID = playerinfoWithGUID;
     }
 }

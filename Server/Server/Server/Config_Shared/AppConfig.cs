@@ -6,5 +6,5 @@ public class AppConfig
 {
     //Free port https://www.speedguide.net/port.php?port=61497
     public static int PortOfMatchMaker = 61497;
-    public static string IpOfMatch;
+    public static string IpOfMatch = "127.0.0.1";//Note matchmaker has its own config
 }

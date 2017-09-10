@@ -1,4 +1,4 @@
-﻿namespace MatchMaker
+﻿namespace Match
 {
     public interface ILogger
     {

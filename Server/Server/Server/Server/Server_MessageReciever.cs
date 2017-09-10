@@ -22,8 +22,9 @@ public class Server_MessageReciever
     /// </summary>
     public void CheckForPlayerRequestMessages()
     {
-        foreach (Server_ServerClient serverClient in connection.GetClientManager().GetClients())
+        for (int i = 0; i < connection.GetClientManager().GetClients().Count; i++)
         {
+            Server_ServerClient serverClient = connection.GetClientManager().GetClients()[i];
             NetworkStream networkStream = serverClient.tcp.GetStream();
             if (networkStream.DataAvailable)
             {

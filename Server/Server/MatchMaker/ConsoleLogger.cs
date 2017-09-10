@@ -1,4 +1,6 @@
-﻿namespace MatchMaker
+﻿using Match;
+
+namespace MatchMaker
 {
     /// <summary>
     /// Used to write to console from projects that build as class libraries

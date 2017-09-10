@@ -41,11 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Message_Requests\Match\Message_Request_JoinGame.cs" />
     <Compile Include="Message_Requests\MatchMaker\Message_Request_JoinQueue.cs" />
+    <Compile Include="Message_Responses\Match\Message_Response_GameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message_Responses\MatchMaker\Message_Response_InQueue.cs" />
-    <Compile Include="Message_Responses\Message_Response_GameInfo.cs" />
     <Compile Include="Message_Updates\Match\Message_Updates_MatchFound.cs" />
+    <Compile Include="Shared\Shared_InGame_PlayerInfo.cs" />
     <Compile Include="Shared\Shared_PlayerInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
