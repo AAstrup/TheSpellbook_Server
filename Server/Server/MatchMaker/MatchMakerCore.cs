@@ -42,6 +42,12 @@ namespace MatchMaker
             }
         }
 
+        /// <summary>
+        /// Creates a thread which will run a new match for the two clinets
+        /// Will tell the clients to join the new match
+        /// </summary>
+        /// <param name="p1">Player 1</param>
+        /// <param name="p2">Player 2</param>
         private void MakeMatch(Server_ServerClient p1, Server_ServerClient p2)
         {
             MatchThread matchInfo = new MatchThread(p1,p2, nextport, logger);
@@ -54,7 +60,8 @@ namespace MatchMaker
                 ip = AppConfig.IpOfMatch,
                 port = nextport
             };
-            Console.WriteLine("Sending update to players new match with port " + nextport);
+            logger.Log("Creating match at port " + nextport);
+            nextport++;
             sender.Send(update,p1);
             sender.Send(update, p2);
         }
