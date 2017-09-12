@@ -27,6 +27,11 @@ public class Server_ClientManager  {
         return clients;
     }
 
+    /// <summary>
+    /// Update a client with player information
+    /// </summary>
+    /// <param name="playerInfo">New information</param>
+    /// <param name="clientToUpdate">Player to update</param>
     public void UpdatePlayerInfo(Shared_PlayerInfo playerInfo, Server_ServerClient clientToUpdate)
     {
         foreach (var client in clients)
@@ -37,6 +42,15 @@ public class Server_ClientManager  {
                 return;
             }
         }
+    }
+
+    /// <summary>
+    /// Remove a client from the list
+    /// </summary>
+    /// <param name="client"></param>
+    public void RemoveClient(Server_ServerClient client)
+    {
+        clients.Remove(client);
     }
 }
 

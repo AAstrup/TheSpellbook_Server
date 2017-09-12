@@ -31,7 +31,8 @@ namespace MatchMaker
         /// <param name="list"></param>
         public void Update(List<Server_ServerClient> list)
         {
-            if(list.Count >= 2)
+            Console.WriteLine("Clients " + list.Count);
+            while(list.Count >= 2)
             {
                 var p1 = list[0];
                 list.RemoveAt(0);

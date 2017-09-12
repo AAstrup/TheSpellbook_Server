@@ -14,17 +14,17 @@ namespace MatchMaker
             handler.Setup(serverCore);
             ILogger logger = new ConsoleLogger();
             MatchMakerCore matchMaker = new MatchMakerCore(logger,serverCore.messageSender);
-
+            int tickrate = 33;
+            int secondToWait = 1000 / tickrate;
             Console.WriteLine("Server started!");
             Console.WriteLine("Press Q to stop");
             Console.WriteLine("Assemblies" + AppDomain.CurrentDomain.GetAssemblies());
 
             while (true)
             {
-                Console.Write(".");
                 serverCore.Update();
                 matchMaker.Update(serverCore.clientManager.GetClients());
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(secondToWait);
             }
         }
     }
