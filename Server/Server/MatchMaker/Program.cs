@@ -11,9 +11,9 @@ namespace MatchMaker
         {
             Server_MessageHandler handler = new Server_MessageHandler();
             ServerCore serverCore = new ServerCore(handler,ConnectionInfo.MatchMakerConnectionInfo());
-            handler.Setup(serverCore);
             ILogger logger = new ConsoleLogger();
-            MatchMakerCore matchMaker = new MatchMakerCore(logger,serverCore.messageSender);
+            MatchMakerCore matchMaker = new MatchMakerCore(serverCore,logger, serverCore.messageSender);
+            handler.Setup(serverCore,matchMaker);
             int tickrate = 33;
             int secondToWait = 1000 / tickrate;
             Console.WriteLine("Server started!");
@@ -23,7 +23,7 @@ namespace MatchMaker
             while (true)
             {
                 serverCore.Update();
-                matchMaker.Update(serverCore.clientManager.GetClients());
+                matchMaker.Update();
                 System.Threading.Thread.Sleep(secondToWait);
             }
         }

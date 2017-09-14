@@ -26,6 +26,6 @@ public class ServerCore
     /// </summary>
     public void Update()
     {
-        messageReciever.CheckForPlayerRequestMessages();
+        messageReciever.CheckForClientRequestMessages();
     }
 }

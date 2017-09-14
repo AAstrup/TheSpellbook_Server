@@ -7,16 +7,32 @@ using System.Collections.Generic;
 /// </summary>
 public class Server_ClientManager  {
     private List<Server_ServerClient> clients;
+    Dictionary<int, Server_ServerClient> GUIDToClient;
     private List<Server_ServerClient> disconnects;
     private ServerCore server;
 
     public Server_ClientManager(ServerCore server)
     {
         this.server = server;
+        GUIDToClient = new Dictionary<int, Server_ServerClient>();
         clients = new List<Server_ServerClient>();
         disconnects = new List<Server_ServerClient>();
     }
 
+    /// <summary>
+    /// Called by client to register 
+    /// Registering the client with their info
+    /// </summary>
+    /// <param name="client"></param>
+    public void RegisterClient(Server_ServerClient client)
+    {
+        GUIDToClient.Add(client.info.GUID, client);
+    }
+
+    /// <summary>
+    /// Registering the client without their info
+    /// </summary>
+    /// <param name="sc"></param>
     public void AddClient(Server_ServerClient sc)
     {
         clients.Add(sc);
@@ -42,6 +58,11 @@ public class Server_ClientManager  {
                 return;
             }
         }
+    }
+
+    public Server_ServerClient GetClient(int GUID)
+    {
+        return GUIDToClient[GUID];
     }
 
     /// <summary>

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Match", "Match\Match.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientServerShared", "Messages\ClientServerShared.csproj", "{193E81AB-FECC-4C90-9ABF-4B63426005AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseConnector", "DatabaseConnector\DatabaseConnector.csproj", "{E343A72B-3C72-4439-8DF3-BDF6A23AD619}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{193E81AB-FECC-4C90-9ABF-4B63426005AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{193E81AB-FECC-4C90-9ABF-4B63426005AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{193E81AB-FECC-4C90-9ABF-4B63426005AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E343A72B-3C72-4439-8DF3-BDF6A23AD619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E343A72B-3C72-4439-8DF3-BDF6A23AD619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E343A72B-3C72-4439-8DF3-BDF6A23AD619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E343A72B-3C72-4439-8DF3-BDF6A23AD619}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

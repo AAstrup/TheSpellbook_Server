@@ -9,38 +9,65 @@ namespace MatchMaker
     /// Responsible for setting up and updating classes used to make matches
     /// Responsible for starting matches as well
     /// </summary>
-    internal class MatchMakerCore
+    public class MatchMakerCore
     {
+        private ServerCore serverCore;
         List<Thread> matchThreads;
         private int nextport;
         private Server_MessageSender sender;
         private ILogger logger;
+        public event Action<Server_ServerClient, Server_ServerClient, Message_ServerRequest_ReadyCheck> matchReadyCheckInitiated;
+        List<Server_ServerClient> registeredClientsQueued;
 
-        public MatchMakerCore(ILogger logger,Server_MessageSender sender)
+        public MatchMakerCore(ServerCore serverCore,ILogger logger,Server_MessageSender sender)
         {
+            registeredClientsQueued = new List<Server_ServerClient>();
+            this.serverCore = serverCore;
             matchThreads = new List<Thread>();
             nextport = AppConfig.FirstPortOfMatches;
             this.sender = sender;
             this.logger = logger;
         }
 
+        internal void RegisterClient(Server_ServerClient client)
+        {
+            registeredClientsQueued.Add(client);
+        }
+
+        internal void RemoveClient(Server_ServerClient client)
+        {
+            registeredClientsQueued.Remove(client);
+        }
+
         /// <summary>
         /// TEMPLATE IMPLEMENTATION
         /// Creates a match if two or more people are queued
         /// </summary>
-        /// <param name="list"></param>
-        public void Update(List<Server_ServerClient> list)
+        /// <param name="clients">Clients connected to server, all with info are in queue</param>
+        public void Update()
         {
-            Console.WriteLine("Clients " + list.Count);
-            while(list.Count >= 2)
+            while(registeredClientsQueued.Count > 1)
             {
-                var p1 = list[0];
-                list.RemoveAt(0);
-                var p2 = list[0];
-                list.RemoveAt(0);
-
-                MakeMatch(p1, p2);
+                var p1 = registeredClientsQueued[0];
+                registeredClientsQueued.RemoveAt(0);
+                var p2 = registeredClientsQueued[0];
+                registeredClientsQueued.RemoveAt(0);
+                SendMatchReadyCheck(p1, p2);
             }
+        }
+
+        /// <summary>
+        /// Will send a ready checkbox to clients for clients to reply
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        private void SendMatchReadyCheck(Server_ServerClient p1, Server_ServerClient p2)
+        {
+            Message_ServerRequest_ReadyCheck msg = new Message_ServerRequest_ReadyCheck();
+            if(matchReadyCheckInitiated != null)
+                matchReadyCheckInitiated.Invoke(p1,p2,msg);
+            sender.Send(msg,p1);
+            sender.Send(msg, p2);
         }
 
         /// <summary>
@@ -49,8 +76,10 @@ namespace MatchMaker
         /// </summary>
         /// <param name="p1">Player 1</param>
         /// <param name="p2">Player 2</param>
-        private void MakeMatch(Server_ServerClient p1, Server_ServerClient p2)
+        public void MakeMatch(Server_ServerClient p1, Server_ServerClient p2)
         {
+            serverCore.clientManager.GetClients().Remove(p1);
+            serverCore.clientManager.GetClients().Remove(p2);
             MatchThread matchInfo = new MatchThread(p1,p2, nextport, logger);
             Thread matchThread = new Thread(new ThreadStart(matchInfo.ThreadStart));
             matchThreads.Add(matchThread);

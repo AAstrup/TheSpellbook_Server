@@ -43,9 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="MatchMakerConfig.cs" />
     <Compile Include="MessageHandlers\MessageHandler_Request_JoinQueue.cs" />
     <Compile Include="MatchMakerCore.cs" />
     <Compile Include="MessageHandlers\MessageHandler_Request_LeaveQueue.cs" />
+    <Compile Include="MessageHandlers\MessageHandler_Response_ReadyCheck.cs" />
     <Compile Include="MessageHandlers\Server_MessageHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

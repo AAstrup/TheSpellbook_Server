@@ -18,9 +18,9 @@ public class Server_MessageReciever
     }
 
     /// <summary>
-    /// Check for player request messages and process them
+    /// Check for client request messages and process them
     /// </summary>
-    public void CheckForPlayerRequestMessages()
+    public void CheckForClientRequestMessages()
     {
         for (int i = 0; i < connection.GetClientManager().GetClients().Count; i++)
         {
@@ -30,7 +30,7 @@ public class Server_MessageReciever
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 var data = formatter.Deserialize(networkStream);
-                Console.WriteLine("Data found");
+                Console.WriteLine("Data recieved");
 
                 if (data != null)
                 {
