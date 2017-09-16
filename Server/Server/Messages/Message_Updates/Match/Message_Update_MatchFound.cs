@@ -5,7 +5,7 @@
 /// Send only to the selected clients
 /// </summary>
 [Serializable]
-public class Message_Updates_MatchFound
+public class Message_Update_MatchFound
 {
     /// <summary>
     /// Port of the match to connect to

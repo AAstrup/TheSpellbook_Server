@@ -10,17 +10,16 @@ using System.Collections.Generic;
 public class Server_MessageHandler :IMessageHandler {
     private MatchMakerCore matchMakerCore;
     private ServerCore server;
-    MessageHandler_Request_JoinQueue handler_Message_Request_JoinQueue;
-    MessageHandler_Request_LeaveQueue handler_Request_LeaveQueue;
-    MessageHandler_Response_ReadyCheck hander_Response_ReadyCheck;
+    private MessageCommandHandler commandHandler;
 
     public void Setup(ServerCore server, MatchMakerCore matchMakerCore)
     {
         this.matchMakerCore = matchMakerCore;
         this.server = server;
-        handler_Message_Request_JoinQueue = new MessageHandler_Request_JoinQueue(server,matchMakerCore);
-        handler_Request_LeaveQueue = new MessageHandler_Request_LeaveQueue();
-        hander_Response_ReadyCheck = new MessageHandler_Response_ReadyCheck(matchMakerCore);
+        commandHandler = new MessageCommandHandler();
+        commandHandler.Add(typeof(Message_Request_JoinQueue), new MessageHandler_Request_JoinQueue(server, matchMakerCore));
+        commandHandler.Add(typeof(Message_Request_LeaveQueue), new MessageHandler_Request_LeaveQueue(server.clientManager, matchMakerCore));
+        commandHandler.Add(typeof(Message_ClientResponse_ReadyCheck), new MessageHandler_Response_ReadyCheck(matchMakerCore, server));
     }
     /// <summary>
     /// The method responsible for getting a serialized object 
@@ -31,16 +30,12 @@ public class Server_MessageHandler :IMessageHandler {
     public void Handle(object data, Server_ServerClient client)
     {
         Console.WriteLine("Data recieved of type " + data.ToString());
-        if (data is Message_Request_JoinQueue)
-            handler_Message_Request_JoinQueue.Handle((Message_Request_JoinQueue)data, client);
-        else if (data is Message_Request_LeaveQueue)
-            handler_Request_LeaveQueue.Handle(client, server.clientManager,matchMakerCore);
-        else if (data is Message_ClientResponse_ReadyCheck)
-            hander_Response_ReadyCheck.Handle((Message_ClientResponse_ReadyCheck)data, client, server);
+        if(commandHandler.Contains(data.GetType()))
+            commandHandler.Execute(data.GetType(),data,client);
         else
         {
-            Console.WriteLine("Data type UKNOWN! Type: " + data.ToString());
-            throw new Exception("Data type UKNOWN! Type: " + data.ToString());
+            Console.WriteLine("Data type UKNOWN! Type: " + data.GetType().ToString());
+            throw new Exception("Data type UKNOWN! Type: " + data.GetType().ToString());
         }
     }
 

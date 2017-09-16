@@ -8,10 +8,13 @@ public class Message_ServerRequest_ReadyCheck
 {
     private static int readyCheckGUID;
 
-    private int msgReadyCheckGUID;
+    public int msgReadyCheckGUID;
+    public int duration;
+
     public Message_ServerRequest_ReadyCheck()
     {
         msgReadyCheckGUID = GetGUID();
+        duration = 10;
     }
 
     /// <summary>

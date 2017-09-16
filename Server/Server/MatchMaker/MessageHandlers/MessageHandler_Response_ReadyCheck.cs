@@ -2,14 +2,16 @@
 using System;
 using System.Collections.Generic;
 
-internal class MessageHandler_Response_ReadyCheck
+internal class MessageHandler_Response_ReadyCheck : IMessageHandlerCommand
 {
+    private ServerCore server;
     Dictionary<int, MatchReadyQueue> readyCheckGuidToMatchReadyQueue;
     List<MatchReadyQueue> queuesRunningSorted;
     private MatchMakerCore matchMakerCore;
 
-    public MessageHandler_Response_ReadyCheck(MatchMakerCore matchMakerCore)
+    public MessageHandler_Response_ReadyCheck(MatchMakerCore matchMakerCore,ServerCore server)
     {
+        this.server = server;
         readyCheckGuidToMatchReadyQueue = new Dictionary<int, MatchReadyQueue>();
         queuesRunningSorted = new List<MatchReadyQueue>();
         this.matchMakerCore = matchMakerCore;
@@ -36,12 +38,13 @@ internal class MessageHandler_Response_ReadyCheck
     /// <param name="data">The message sent from the client</param>
     /// <param name="client">The client</param>
     /// <param name="server">The server</param>
-    public void Handle(Message_ClientResponse_ReadyCheck data, Server_ServerClient client, ServerCore server)
+    public void Handle(object objData, Server_ServerClient client)
     {
+        Message_ClientResponse_ReadyCheck data = (Message_ClientResponse_ReadyCheck)objData;
         var queue = readyCheckGuidToMatchReadyQueue[data.readyCheckGUID_FromServerReadyCheck];
         queue.playersConnected.Add(client.info.GUID);
         Console.WriteLine("Recieved Message_ClientResponse_ReadyCheck!");
-        if(queue.playersConnected.Count == queue.playerGuidsToConnect.Count)
+        if (queue.playersConnected.Count == queue.playerGuidsToConnect.Count)
         {
             Console.WriteLine("Creating a MATCH");
             matchMakerCore.MakeMatch(server.clientManager.GetClient(queue.playersConnected[0]), server.clientManager.GetClient(queue.playersConnected[1]));

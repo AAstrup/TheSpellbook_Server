@@ -29,11 +29,20 @@ namespace MatchMaker
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Register a client to the queue
+        /// Distinct from the servers collection of client, they must have information here
+        /// </summary>
+        /// <param name="client"></param>
         internal void RegisterClient(Server_ServerClient client)
         {
             registeredClientsQueued.Add(client);
         }
 
+        /// <summary>
+        /// Remove a client from the queue
+        /// </summary>
+        /// <param name="client"></param>
         internal void RemoveClient(Server_ServerClient client)
         {
             registeredClientsQueued.Remove(client);
@@ -80,12 +89,12 @@ namespace MatchMaker
         {
             serverCore.clientManager.GetClients().Remove(p1);
             serverCore.clientManager.GetClients().Remove(p2);
-            MatchThread matchInfo = new MatchThread(p1,p2, nextport, logger);
+            MatchThread matchInfo = new MatchThread(p1.info,p2.info, nextport, logger);
             Thread matchThread = new Thread(new ThreadStart(matchInfo.ThreadStart));
             matchThreads.Add(matchThread);
             matchThread.Start();
 
-            Message_Updates_MatchFound update = new Message_Updates_MatchFound()
+            Message_Update_MatchFound update = new Message_Update_MatchFound()
             {
                 ip = AppConfig.IpOfMatch,
                 port = nextport

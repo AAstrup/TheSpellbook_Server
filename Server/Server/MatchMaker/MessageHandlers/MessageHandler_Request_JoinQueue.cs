@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Request to join the queue of the Matchmaker
 /// </summary>
-internal class MessageHandler_Request_JoinQueue
+public class MessageHandler_Request_JoinQueue : IMessageHandlerCommand
 {
     private MatchMakerCore matchMaker;
     private ServerCore server;
@@ -16,8 +16,9 @@ internal class MessageHandler_Request_JoinQueue
         this.server = server;
     }
 
-    internal void Handle(Message_Request_JoinQueue data, Server_ServerClient client)
+    public void Handle(object obj, Server_ServerClient client)
     {
+        Message_Request_JoinQueue data = (Message_Request_JoinQueue)obj;
         client.info = data.playerInfo;
         client.info.GUID = GUIDCounter++;
         server.clientManager.RegisterClient(client);

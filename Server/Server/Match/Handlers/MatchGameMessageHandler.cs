@@ -8,28 +8,33 @@ namespace Match
     /// </summary>
     internal class MatchGameMessageHandler : IMessageHandler
     {
-        private Server_MessageSender sender;
+        private ServerCore server;
         private GameEngine gameEngine;
         private ILogger logger;
-        MessageHandler_Request_JoinGame messageHandler_Request_JoinGame;
+        private MessageCommandHandler commandHandler;
 
         public MatchGameMessageHandler(ILogger logger,GameEngine gameEngine)
         {
             this.gameEngine = gameEngine;
             this.logger = logger;
+            commandHandler.Add(typeof(Message_Request_PlayCard),new MessageHandler_Request_PlayCard(gameEngine));
         }
 
         public void Handle(object data, Server_ServerClient client)
         {
-            if (data is Message_Request_JoinGame)
-                messageHandler_Request_JoinGame.Handle((Message_Request_JoinGame)data,client,gameEngine);
+            if (commandHandler.Contains(data.GetType()))
+                commandHandler.Execute(data.GetType(), data, client);
+            else
+            {
+                Console.WriteLine("Data type UKNOWN! Type: " + data.GetType().ToString());
+                throw new Exception("Data type UKNOWN! Type: " + data.GetType().ToString());
+            }
         }
 
-        internal void Init(Server_MessageSender sender)
+        internal void Init(ServerCore server)
         {
-            this.sender = sender;
-            messageHandler_Request_JoinGame = new MessageHandler_Request_JoinGame (sender,logger);
-
+            this.server = server;
+            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(server.messageSender, logger, server.clientManager,gameEngine));
         }
     }
 }

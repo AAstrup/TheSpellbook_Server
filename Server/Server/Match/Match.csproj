@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\GameEngine.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
+    <Compile Include="Handlers\MessageHandler_Request_PlayCard.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Handlers\MatchGameMessageHandler.cs" />
     <Compile Include="MatchThread.cs" />
