@@ -9,7 +9,7 @@ namespace Match
     internal class MatchGameMessageHandler : IMessageHandler
     {
         private ServerCore server;
-        private GameEngine gameEngine;
+        public GameEngine gameEngine;
         private ILogger logger;
         private MessageCommandHandler commandHandler;
 
@@ -17,6 +17,7 @@ namespace Match
         {
             this.gameEngine = gameEngine;
             this.logger = logger;
+            commandHandler = new MessageCommandHandler();
             commandHandler.Add(typeof(Message_Request_PlayCard),new MessageHandler_Request_PlayCard(gameEngine));
         }
 

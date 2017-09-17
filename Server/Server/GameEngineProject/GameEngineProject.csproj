@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9CA2D4D-1048-4F0E-B21A-139700A8352E}</ProjectGuid>
+    <ProjectGuid>{F8F7C875-D2EF-4612-B126-F5D4040C8396}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Match</RootNamespace>
-    <AssemblyName>Match</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>GameEngineProject</RootNamespace>
+    <AssemblyName>GameEngineProject</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,25 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
-    <Compile Include="Handlers\MessageHandler_Request_PlayCard.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="Handlers\MatchGameMessageHandler.cs" />
-    <Compile Include="MatchThread.cs" />
+    <Compile Include="GameEngine.cs" />
+    <Compile Include="GameEngineSender_LocalSender.cs" />
+    <Compile Include="LocalSetup_Factory.cs" />
+    <Compile Include="IGameEngineSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TurnManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameEngineProject\GameEngineProject.csproj">
-      <Project>{f8f7c875-d2ef-4612-b126-f5d4040c8396}</Project>
-      <Name>GameEngineProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Messages\ClientServerShared.csproj">
-      <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
+      <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
       <Name>ClientServerShared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Server\ServerProject.csproj">
-      <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
-      <Name>ServerProject</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -63,6 +63,10 @@ namespace MatchMaker
                 registeredClientsQueued.RemoveAt(0);
                 SendMatchReadyCheck(p1, p2);
             }
+            if(matchThreads.Count > 0)
+                if (!matchThreads[0].IsAlive)
+                    matchThreads.RemoveAt(0);
+            Console.WriteLine("Game Threads:" + matchThreads.Count);
         }
 
         /// <summary>
