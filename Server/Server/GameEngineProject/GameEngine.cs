@@ -42,6 +42,6 @@ public class GameEngine
     /// <param name="playerGUID"></param>
     public void PlayCard(int cardID, int playerGUID)
     {
-        sender.Win(playerGUID);
+        sender.Event_Win(playerGUID);
     }
 }

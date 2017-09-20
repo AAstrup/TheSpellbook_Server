@@ -2,14 +2,14 @@
 
 namespace Match
 {
-    internal class MessageHandler_Request_JoinGame : IMessageHandlerCommand
+    public class MessageHandler_Request_JoinGame : IMessageHandlerCommand
     {
         private GameEngine gameEngine;
         private Server_ClientManager server_ClientManager;
         ILogger logger;
-        private Server_MessageSender sender;
+        private IGameEngineSender sender;
 
-        public MessageHandler_Request_JoinGame(Server_MessageSender sender, ILogger logger,Server_ClientManager server_ClientManager, GameEngine gameEngine)
+        public MessageHandler_Request_JoinGame(IGameEngineSender sender, ILogger logger, GameEngine gameEngine)
         {
             this.gameEngine = gameEngine;
             this.server_ClientManager = server_ClientManager;
@@ -37,7 +37,7 @@ namespace Match
                 throw new Exception("Player GUID not found for a registered play! p1 guid " + gameEngine.p1.GUID + " p2 guid " + gameEngine.p2.GUID);
 
             Message_Response_GameState gameData = new Message_Response_GameState(me,opp.GetAsHidden());//Make so you don't get your opponents cards!
-            sender.Send(gameData, client);
+            sender.Send(client.info.GUID, gameData);
         }
 
     }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ILogger.cs" />
     <Compile Include="Message_Requests\MatchMaker\Message_ServerRequest_ReadyCheck.cs" />
     <Compile Include="Message_Requests\Match\Message_Request_JoinGame.cs" />
     <Compile Include="Message_Requests\MatchMaker\Message_Request_JoinQueue.cs" />
@@ -55,5 +56,6 @@
     <Compile Include="Shared\Shared_InGame_PlayerInfo.cs" />
     <Compile Include="Shared\Shared_PlayerInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server;
+using System;
 using System.Diagnostics;
 
 namespace Match
@@ -6,12 +7,12 @@ namespace Match
     /// <summary>
     /// Handles messages from the client when they are in a match
     /// </summary>
-    internal class MatchGameMessageHandler : IMessageHandler
+    public class MatchGameMessageHandler : IMessageHandler
     {
-        private ServerCore server;
         public GameEngine gameEngine;
         private ILogger logger;
         private MessageCommandHandler commandHandler;
+        private IGameEngineSender sender;
 
         public MatchGameMessageHandler(ILogger logger,GameEngine gameEngine)
         {
@@ -32,10 +33,14 @@ namespace Match
             }
         }
 
-        internal void Init(ServerCore server)
+        /// <summary>
+        /// Setup handlers that requires a sender to reply with
+        /// </summary>
+        /// <param name="sender"></param>
+        internal void Init(IGameEngineSender sender)
         {
-            this.server = server;
-            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(server.messageSender, logger, server.clientManager,gameEngine));
+            this.sender = sender;
+            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(sender, logger, gameEngine));
         }
     }
 }
