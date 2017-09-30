@@ -11,33 +11,44 @@ namespace Match
     public class MatchThread 
     {
         private ILogger logger;
-        private GameEngineSender_MatchSender sender;
         private Dictionary<int, Shared_PlayerInfo> GUIDToPlayerClient;
         private int port;
         private ServerCore server;
-        private Shared_PlayerInfo info_p1;
-        private Shared_PlayerInfo info_p2;
+        private List<Shared_PlayerInfo> clientsInfo;
         private bool gameHasEnded;
 
-        public MatchThread(Shared_PlayerInfo info_p1, Shared_PlayerInfo info_p2, int port, ILogger logger)
+        /// <summary>
+        /// Creates a new Match class which can be used for running a server for a match
+        /// This has to be started using the ThreadStart method on a new thread to be ran
+        /// </summary>
+        /// <param name="clients">Clients that will be in the match</param>
+        /// <param name="port">Port used by the thread</param>
+        /// <param name="logger">Logger used to log info</param>
+        public MatchThread(List<Server_ServerClient> clients, int port, ILogger logger)
         {
-            this.info_p1 = info_p1;
-            this.info_p2 = info_p2;
+            clientsInfo = new List<Shared_PlayerInfo>();
+            foreach (var client in clients)
+            {
+                clientsInfo.Add(client.info);
+            }
             this.port = port;
             this.logger = logger;
             var GUIDToPlayerClient = new Dictionary<int, Shared_PlayerInfo>();
-            GUIDToPlayerClient.Add(info_p1.GUID, this.info_p1);
-            GUIDToPlayerClient.Add(info_p2.GUID, this.info_p2);
-            sender = new GameEngineSender_MatchSender(GUIDToPlayerClient);
+            foreach (var clientInfo in clientsInfo)
+            {
+                GUIDToPlayerClient.Add(clientInfo.GUID, clientInfo);
+            }
         }
 
+        /// <summary>
+        /// Always call this method on a new thread
+        /// Starts the thread running the match
+        /// </summary>
         public void ThreadStart()
         {
-            GameEngine gameEngine = new GameEngine(sender,info_p1, info_p2);
-            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,gameEngine);
+            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
             server = new ServerCore(matchGameHandler,new ConnectionInfo(port));
-            sender.Init(server);
-            matchGameHandler.Init(sender);
+            matchGameHandler.Init();
 
             while (!gameHasEnded)
             {
@@ -48,5 +59,7 @@ namespace Match
         }
 
         public ServerCore GetServer() { return server; }
+        public List<Shared_PlayerInfo> GetClientsInfo() { return clientsInfo; }
+        public Shared_PlayerInfo GetClientByGUID(int GUID) { return GUIDToPlayerClient[GUID]; }
     }
 }

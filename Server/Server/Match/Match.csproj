@@ -41,16 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageAdapters\GameEngineSender_MatchSender.cs" />
+    <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
     <Compile Include="MessageAdapters\MatchGameMessageHandler.cs" />
     <Compile Include="MatchThread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GameEngineProject\GameEngineProject.csproj">
-      <Project>{f8f7c875-d2ef-4612-b126-f5d4040c8396}</Project>
-      <Name>GameEngineProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Messages\ClientServerShared.csproj">
       <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
       <Name>ClientServerShared</Name>

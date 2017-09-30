@@ -2,6 +2,7 @@
 using Server;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Threading;
 
 namespace MatchMaker
@@ -17,7 +18,7 @@ namespace MatchMaker
         private int nextport;
         private Server_MessageSender sender;
         private ILogger logger;
-        public event Action<Server_ServerClient, Server_ServerClient, Message_ServerRequest_ReadyCheck> matchReadyCheckInitiated;
+        public event Action<List<Server_ServerClient>, Message_ServerRequest_ReadyCheck> matchReadyCheckInitiated;
         List<Server_ServerClient> registeredClientsQueued;
 
         public MatchMakerCore(ServerCore serverCore,ILogger logger,Server_MessageSender sender)
@@ -56,58 +57,64 @@ namespace MatchMaker
         /// <param name="clients">Clients connected to server, all with info are in queue</param>
         public void Update()
         {
-            while(registeredClientsQueued.Count > 1)
+            while(registeredClientsQueued.Count >= AppConfig.PlayerCountInAMatch)
             {
-                var p1 = registeredClientsQueued[0];
-                registeredClientsQueued.RemoveAt(0);
-                var p2 = registeredClientsQueued[0];
-                registeredClientsQueued.RemoveAt(0);
-                SendMatchReadyCheck(p1, p2);
+                List<Server_ServerClient> clients = new List<Server_ServerClient>();
+                for (int i = 0; i < AppConfig.PlayerCountInAMatch; i++)
+                {
+                    var e = registeredClientsQueued[0];
+                    registeredClientsQueued.Remove(e);
+                    clients.Add(e);
+                }
+                SendMatchReadyCheck(clients);
             }
             if(matchThreads.Count > 0)
                 if (!matchThreads[0].IsAlive)
                     matchThreads.RemoveAt(0);
-            Console.WriteLine("Game Threads:" + matchThreads.Count);
         }
 
         /// <summary>
         /// Will send a ready checkbox to clients for clients to reply
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        private void SendMatchReadyCheck(Server_ServerClient p1, Server_ServerClient p2)
+        /// <param name="clients">Clients to connect to the match</param>
+        private void SendMatchReadyCheck(List<Server_ServerClient> clients)
         {
             Message_ServerRequest_ReadyCheck msg = new Message_ServerRequest_ReadyCheck();
             if(matchReadyCheckInitiated != null)
-                matchReadyCheckInitiated.Invoke(p1,p2,msg);
-            sender.Send(msg,p1);
-            sender.Send(msg, p2);
+                matchReadyCheckInitiated.Invoke(clients,msg);
+            foreach (var client in clients)
+            {
+                sender.Send(msg, client);
+            }
         }
 
         /// <summary>
         /// Creates a thread which will run a new match for the two clinets
         /// Will tell the clients to join the new match
         /// </summary>
-        /// <param name="p1">Player 1</param>
-        /// <param name="p2">Player 2</param>
-        public void MakeMatch(Server_ServerClient p1, Server_ServerClient p2)
+        /// <param name="clients">Clients</param>
+        public void MakeMatch(List<Server_ServerClient> clients)
         {
-            serverCore.clientManager.GetClients().Remove(p1);
-            serverCore.clientManager.GetClients().Remove(p2);
-            MatchThread matchInfo = new MatchThread(p1.info,p2.info, nextport, logger);
+            foreach (var client in clients)
+            {
+                serverCore.clientManager.GetClients().Remove(client);
+            }
+            MatchThread matchInfo = new MatchThread(clients, nextport, logger);
             Thread matchThread = new Thread(new ThreadStart(matchInfo.ThreadStart));
             matchThreads.Add(matchThread);
             matchThread.Start();
 
             Message_Update_MatchFound update = new Message_Update_MatchFound()
             {
-                ip = AppConfig.IpOfMatch,
+                ip = ConfigurationManager.AppSettings["IpOfMatch"],
                 port = nextport
             };
             logger.Log("Creating match at port " + nextport);
             nextport++;
-            sender.Send(update,p1);
-            sender.Send(update, p2);
+            foreach (var client in clients)
+            {
+                sender.Send(update, client);
+            }
         }
     }
 }

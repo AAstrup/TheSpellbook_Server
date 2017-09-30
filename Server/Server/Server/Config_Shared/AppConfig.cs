@@ -14,5 +14,6 @@ namespace Server
         public static int FirstPortOfMatches = 61498;//Will increment as more matches are created
         public static IPAddress IpAddressOfMatchMaker = IPAddress.Any;
         public static IPAddress IpAddressLocal = IPAddress.Any;
+        public static int PlayerCountInAMatch = 2;
     }
 }

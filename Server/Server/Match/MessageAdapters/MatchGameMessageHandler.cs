@@ -9,17 +9,15 @@ namespace Match
     /// </summary>
     public class MatchGameMessageHandler : IMessageHandler
     {
-        public GameEngine gameEngine;
+        private MatchThread matchThread;
         private ILogger logger;
         private MessageCommandHandler commandHandler;
-        private IGameEngineSender sender;
 
-        public MatchGameMessageHandler(ILogger logger,GameEngine gameEngine)
+        public MatchGameMessageHandler(ILogger logger, MatchThread matchThread)
         {
-            this.gameEngine = gameEngine;
+            this.matchThread = matchThread;
             this.logger = logger;
             commandHandler = new MessageCommandHandler();
-            commandHandler.Add(typeof(Message_Request_PlayCard),new MessageHandler_Request_PlayCard(gameEngine));
         }
 
         public void Handle(object data, Server_ServerClient client)
@@ -37,10 +35,10 @@ namespace Match
         /// Setup handlers that requires a sender to reply with
         /// </summary>
         /// <param name="sender"></param>
-        internal void Init(IGameEngineSender sender)
+        internal void Init()
         {
-            this.sender = sender;
-            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(sender, logger, gameEngine));
+            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread));
+
         }
     }
 }
