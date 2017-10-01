@@ -12,7 +12,7 @@ public class Server_Connection
 {
     private TcpListener listner;
     private Server_ClientManager clientManager;
-    private ConnectionInfo connectionInfo;
+    private ServerConnectionInfo connectionInfo;
     private int threads;
 
     /// <summary>
@@ -21,7 +21,7 @@ public class Server_Connection
     /// </summary>
     /// <param name="clientManager">The manager of the clients connected</param>
     /// <param name="connectionInfo">Information used to determine ip and port</param>
-    public Server_Connection(Server_ClientManager clientManager, ConnectionInfo connectionInfo)
+    public Server_Connection(Server_ClientManager clientManager, ServerConnectionInfo connectionInfo)
     {
         this.clientManager = clientManager;
         this.connectionInfo = connectionInfo;

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\IMessageHandlerCommand.cs" />
+    <Compile Include="Handlers\MessageCommandHandlerServer.cs" />
     <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
     <Compile Include="MessageAdapters\MatchGameMessageHandler.cs" />
     <Compile Include="MatchThread.cs" />
@@ -51,9 +53,9 @@
       <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
       <Name>ClientServerShared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Server\ServerProject.csproj">
+    <ProjectReference Include="..\Server\ServerEndPoint.csproj">
       <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
-      <Name>ServerProject</Name>
+      <Name>ServerEndPoint</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,7 +11,7 @@ namespace MatchMaker
         static void Main(string[] args)
         {
             Server_MessageHandler handler = new Server_MessageHandler();
-            ServerCore serverCore = new ServerCore(handler,ConnectionInfo.MatchMakerConnectionInfo());
+            ServerCore serverCore = new ServerCore(handler,ServerConnectionInfo.MatchMakerConnectionInfo());
             ILogger logger = new ConsoleLogger();
             MatchMakerCore matchMaker = new MatchMakerCore(serverCore,logger, serverCore.messageSender);
             handler.Setup(serverCore,matchMaker);

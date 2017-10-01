@@ -1,7 +1,4 @@
-﻿namespace Match
-{
-    public interface ILogger
+﻿    public interface ILogger
     {
         void Log(string s);
     }
-}

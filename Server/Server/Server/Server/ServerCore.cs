@@ -11,9 +11,9 @@ public class ServerCore
     public Server_Connection connection;
     public Server_MessageReciever messageReciever;
     public Server_MessageSender messageSender;
-    private ConnectionInfo connectionInfo;
+    private ServerConnectionInfo connectionInfo;
 
-    public ServerCore(IMessageHandler messageHandler,ConnectionInfo connectionInfo)
+    public ServerCore(IMessageHandler messageHandler,ServerConnectionInfo connectionInfo)
     {
         gameInfo = new Server_GameInfo();
         clientManager = new Server_ClientManager(this);

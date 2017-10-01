@@ -11,13 +11,13 @@ using System.Collections.Generic;
 public class Server_MessageHandler :IMessageHandler {
     private MatchMakerCore matchMakerCore;
     private ServerCore server;
-    private MessageCommandHandler commandHandler;
+    private MessageCommandHandlerServer commandHandler;
 
     public void Setup(ServerCore server, MatchMakerCore matchMakerCore)
     {
         this.matchMakerCore = matchMakerCore;
         this.server = server;
-        commandHandler = new MessageCommandHandler();
+        commandHandler = new MessageCommandHandlerServer();
         commandHandler.Add(typeof(Message_Request_JoinQueue), new MessageHandler_Request_JoinQueue(server, matchMakerCore));
         commandHandler.Add(typeof(Message_Request_LeaveQueue), new MessageHandler_Request_LeaveQueue(server.clientManager, matchMakerCore));
         commandHandler.Add(typeof(Message_ClientResponse_ReadyCheck), new MessageHandler_Response_ReadyCheck(matchMakerCore, server));

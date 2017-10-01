@@ -44,12 +44,12 @@ internal class MessageHandler_Response_ReadyCheck : IMessageHandlerCommand
         var queue = readyCheckGuidToMatchReadyQueue[data.readyCheckGUID_FromServerReadyCheck];
         queue.playersConnected.Add(client.info.GUID);
         Console.WriteLine("Recieved Message_ClientResponse_ReadyCheck!");
-        if (queue.playersConnected.Count == AppConfig.PlayerCountInAMatch)
+        if (queue.playersConnected.Count == ServerConfig.GetInt("PlayerCountInAMatch"))
         {
             Console.WriteLine("Creating a MATCH");
-            List<Server_ServerClient> toJoinMatch = new List<Server_ServerClient>(AppConfig.PlayerCountInAMatch);
+            List<Server_ServerClient> toJoinMatch = new List<Server_ServerClient>(ServerConfig.GetInt("PlayerCountInAMatch"));
 
-            while (toJoinMatch.Count < AppConfig.PlayerCountInAMatch)
+            while (toJoinMatch.Count < ServerConfig.GetInt("PlayerCountInAMatch"))
             {
                 var player = server.clientManager.GetClients()[0];
                 server.clientManager.GetClients().RemoveAt(0);

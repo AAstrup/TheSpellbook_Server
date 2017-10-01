@@ -47,7 +47,7 @@ namespace Match
         public void ThreadStart()
         {
             MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
-            server = new ServerCore(matchGameHandler,new ConnectionInfo(port));
+            server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
             matchGameHandler.Init();
 
             while (!gameHasEnded)

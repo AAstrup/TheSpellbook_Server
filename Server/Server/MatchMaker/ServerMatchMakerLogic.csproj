@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>MatchMaker</RootNamespace>
     <AssemblyName>MatchMaker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -58,17 +59,17 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Match\Match.csproj">
+    <ProjectReference Include="..\Match\ServerMatchLogic.csproj">
       <Project>{d9ca2d4d-1048-4f0e-b21a-139700a8352e}</Project>
-      <Name>Match</Name>
+      <Name>ServerMatchLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messages\ClientServerShared.csproj">
       <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
       <Name>ClientServerShared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Server\ServerProject.csproj">
+    <ProjectReference Include="..\Server\ServerEndPoint.csproj">
       <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
-      <Name>ServerProject</Name>
+      <Name>ServerEndPoint</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

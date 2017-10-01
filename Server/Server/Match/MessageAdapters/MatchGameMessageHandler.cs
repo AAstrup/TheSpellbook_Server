@@ -11,13 +11,13 @@ namespace Match
     {
         private MatchThread matchThread;
         private ILogger logger;
-        private MessageCommandHandler commandHandler;
+        private MessageCommandHandlerServer commandHandler;
 
         public MatchGameMessageHandler(ILogger logger, MatchThread matchThread)
         {
             this.matchThread = matchThread;
             this.logger = logger;
-            commandHandler = new MessageCommandHandler();
+            commandHandler = new MessageCommandHandlerServer();
         }
 
         public void Handle(object data, Server_ServerClient client)

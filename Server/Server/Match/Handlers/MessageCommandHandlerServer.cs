@@ -5,10 +5,10 @@ using System.Collections.Generic;
 /// Commandhandler allowing for more easily managing and isolating commands
 /// This is used by messagehandlers to administrate messages and their handles
 /// </summary>
-public class MessageCommandHandler
+public class MessageCommandHandlerServer
 {
     Dictionary<Type, IMessageHandlerCommand> commands;
-    public MessageCommandHandler()
+    public MessageCommandHandlerServer()
     {
         commands = new Dictionary<Type, IMessageHandlerCommand>();
     }

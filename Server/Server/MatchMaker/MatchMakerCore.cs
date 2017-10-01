@@ -18,7 +18,8 @@ namespace MatchMaker
         private int nextport;
         private Server_MessageSender sender;
         private ILogger logger;
-        public event Action<List<Server_ServerClient>, Message_ServerRequest_ReadyCheck> matchReadyCheckInitiated;
+        public delegate void readyCheck(List<Server_ServerClient> clients, Message_ServerRequest_ReadyCheck readyCheck);
+        public event readyCheck matchReadyCheckInitiated;
         List<Server_ServerClient> registeredClientsQueued;
 
         public MatchMakerCore(ServerCore serverCore,ILogger logger,Server_MessageSender sender)
@@ -26,7 +27,7 @@ namespace MatchMaker
             registeredClientsQueued = new List<Server_ServerClient>();
             this.serverCore = serverCore;
             matchThreads = new List<Thread>();
-            nextport = AppConfig.FirstPortOfMatches;
+            nextport = ServerConfig.FirstPortOfMatches;
             this.sender = sender;
             this.logger = logger;
         }
@@ -57,10 +58,10 @@ namespace MatchMaker
         /// <param name="clients">Clients connected to server, all with info are in queue</param>
         public void Update()
         {
-            while(registeredClientsQueued.Count >= AppConfig.PlayerCountInAMatch)
+            while(registeredClientsQueued.Count >= ServerConfig.GetInt("PlayerCountInAMatch"))
             {
                 List<Server_ServerClient> clients = new List<Server_ServerClient>();
-                for (int i = 0; i < AppConfig.PlayerCountInAMatch; i++)
+                for (int i = 0; i < ServerConfig.GetInt("PlayerCountInAMatch"); i++)
                 {
                     var e = registeredClientsQueued[0];
                     registeredClientsQueued.Remove(e);
@@ -80,8 +81,7 @@ namespace MatchMaker
         private void SendMatchReadyCheck(List<Server_ServerClient> clients)
         {
             Message_ServerRequest_ReadyCheck msg = new Message_ServerRequest_ReadyCheck();
-            if(matchReadyCheckInitiated != null)
-                matchReadyCheckInitiated.Invoke(clients,msg);
+            matchReadyCheckInitiated.Invoke(clients,msg);
             foreach (var client in clients)
             {
                 sender.Send(msg, client);
