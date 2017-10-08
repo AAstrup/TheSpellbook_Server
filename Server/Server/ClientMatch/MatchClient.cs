@@ -56,6 +56,11 @@ public class MatchClient : IUnityComponentResetable
         EventHandler.SetUIState_JoiningGame();
     }
 
+    /// <summary>
+    /// Updates the client
+    /// Sending and recieving messages
+    /// </summary>
+    /// <param name="deltaTime"></param>
     public void Update(float deltaTime)
     {
         updateController.Update(deltaTime);
@@ -65,5 +70,10 @@ public class MatchClient : IUnityComponentResetable
 
     public void Clean()
     {
+    }
+
+    public void Send(object serializableObj)
+    {
+        client.sender.Send(serializableObj);
     }
 }
