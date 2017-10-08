@@ -39,7 +39,7 @@ namespace Match
             clientsInfo = new List<Shared_PlayerInfo>();
             GUIDToPlayerClient = new Dictionary<int, Server_ServerClient>();
             PlayerCountExpected = clients.Count;
-            serverExtensions = MatchExtensionFactory.CreateExtensions();
+            serverExtensions = MatchExtensionFactory.CreateExtensions(logger);
             this.port = port;
             this.logger = logger;
         }
