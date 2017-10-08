@@ -13,7 +13,7 @@ internal class Handler_Response_GameState : IMessageHandlerCommandClient
 
     public void Handle(object objdata)
     {
-        var data = (Message_Response_GameState)objdata;
+        var data = (Message_Response_GameAllConnected)objdata;
         foreach (var item in data.AllPlayers)
         {
             logger.Log("Player " + item.name + " is in this game");

@@ -11,33 +11,34 @@ namespace Match
     public class MatchThread 
     {
         private ILogger logger;
-        private Dictionary<int, Shared_PlayerInfo> GUIDToPlayerClient;
+        public int PlayerCountExpected;
+        private Dictionary<int, Server_ServerClient> GUIDToPlayerClient;
+        public List<int> remainingPlayerGUIDsToConnect;
         private int port;
         private ServerCore server;
-        private List<Shared_PlayerInfo> clientsInfo;
         private bool gameHasEnded;
+        private List<Shared_PlayerInfo> clientsInfo;
 
         /// <summary>
         /// Creates a new Match class which can be used for running a server for a match
         /// This has to be started using the ThreadStart method on a new thread to be ran
         /// </summary>
-        /// <param name="clients">Clients that will be in the match</param>
+        /// <param name="clients">Clients given by the matchmaker, new connection must be established from them</param>
         /// <param name="port">Port used by the thread</param>
         /// <param name="logger">Logger used to log info</param>
         public MatchThread(List<Server_ServerClient> clients, int port, ILogger logger)
         {
-            clientsInfo = new List<Shared_PlayerInfo>();
-            foreach (var client in clients)
+            remainingPlayerGUIDsToConnect = new List<int>();
+            foreach (var item in clients)
             {
-                clientsInfo.Add(client.info);
+                remainingPlayerGUIDsToConnect.Add(item.info.GUID);
             }
+
+            clientsInfo = new List<Shared_PlayerInfo>();
+            GUIDToPlayerClient = new Dictionary<int, Server_ServerClient>();
+            PlayerCountExpected = clients.Count;
             this.port = port;
             this.logger = logger;
-            var GUIDToPlayerClient = new Dictionary<int, Shared_PlayerInfo>();
-            foreach (var clientInfo in clientsInfo)
-            {
-                GUIDToPlayerClient.Add(clientInfo.GUID, clientInfo);
-            }
         }
 
         /// <summary>
@@ -58,8 +59,16 @@ namespace Match
             logger.Log("Match ended");
         }
 
+        public void RegisterClientInfo(Server_ServerClient client)
+        {
+            remainingPlayerGUIDsToConnect.Remove(client.info.GUID);
+            GUIDToPlayerClient.Add(client.info.GUID, client);
+            clientsInfo.Add(client.info);
+        }
+
         public ServerCore GetServer() { return server; }
-        public List<Shared_PlayerInfo> GetClientsInfo() { return clientsInfo; }
-        public Shared_PlayerInfo GetClientByGUID(int GUID) { return GUIDToPlayerClient[GUID]; }
+        public Dictionary<int, Server_ServerClient> GetConnectedClients() { return GUIDToPlayerClient; }
+        public List<Shared_PlayerInfo> GetConnectedClientsInfo() { return clientsInfo; }
+        public Server_ServerClient GetClientByGUID(int GUID) { return GUIDToPlayerClient[GUID]; }
     }
 }

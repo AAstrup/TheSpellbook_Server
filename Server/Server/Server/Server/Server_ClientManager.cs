@@ -20,7 +20,7 @@ public class Server_ClientManager  {
     }
 
     /// <summary>
-    /// Called by client to register 
+    /// Called by client through MessageHandler_Request_JoinQueue to register 
     /// Registering the client with their info
     /// </summary>
     /// <param name="client"></param>

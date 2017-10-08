@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Match
 {
@@ -16,7 +17,8 @@ namespace Match
         }
 
         /// <summary>
-        /// Will
+        /// Will register a client to a game
+        /// If all are registered the game starts
         /// </summary>
         /// <param name="objData"></param>
         /// <param name="client"></param>
@@ -25,16 +27,31 @@ namespace Match
             Message_Request_JoinGame data = (Message_Request_JoinGame)objData;
             client.info = data.info;
 
-            foreach (var c in matchThread.GetServer().clientManager.GetClients())
+            for (int i = 0; i < matchThread.remainingPlayerGUIDsToConnect.Count; i++)
             {
-                if(c.info.GUID == data.info.GUID)
+                if (matchThread.remainingPlayerGUIDsToConnect[i] == data.info.GUID)
                 {
-                    Message_Response_GameState gameData = new Message_Response_GameState(c.info, matchThread.GetClientsInfo());
-                    sender.Send(gameData, client);
-                    return;
+                    matchThread.RegisterClientInfo(client);
                 }
             }
-            Console.WriteLine("PLAYER GUID NOT FOUND. WILL NOT REGISTER");
+            CheckIfTheGameCanBeStarted();
+        }
+
+        /// <summary>
+        /// Check if the game can be started
+        /// Current condition checks if the count of connected players matches the expected amount
+        /// </summary>
+        private void CheckIfTheGameCanBeStarted()
+        {
+            if (matchThread.GetConnectedClientsInfo().Count == matchThread.PlayerCountExpected)
+            {
+                List<Shared_PlayerInfo> playerInfoes = matchThread.GetConnectedClientsInfo();
+                foreach (var client in matchThread.GetConnectedClients())
+                {
+                    Message_Response_GameAllConnected gameData = new Message_Response_GameAllConnected(client.Value.info, playerInfoes);
+                    sender.Send(gameData, client.Value);
+                }
+            }
         }
     }
 }

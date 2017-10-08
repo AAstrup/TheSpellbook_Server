@@ -46,7 +46,7 @@
     <Compile Include="Message_Requests\Match\Message_Request_JoinGame.cs" />
     <Compile Include="Message_Requests\MatchMaker\Message_Request_JoinQueue.cs" />
     <Compile Include="Message_Requests\Match\Message_Request_LeaveQueue.cs" />
-    <Compile Include="Message_Responses\Match\Message_Response_GameState.cs" />
+    <Compile Include="Message_Responses\Match\Message_Response_GameAllConnected.cs" />
     <Compile Include="Message_Responses\MatchMaker\Message_ClientResponse_ReadyCheck.cs" />
     <Compile Include="Message_Updates\Match\Message_Update_MatchFinished.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

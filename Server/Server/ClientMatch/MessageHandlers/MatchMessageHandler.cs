@@ -15,7 +15,7 @@ public class MatchMessageHandler : IMessageHandler
 
         this.matchEventHandler = matchEventHandler;
         commandHandler = new MessageCommandHandlerClient(msgHandler);
-        commandHandler.Add(typeof(Message_Response_GameState), new Handler_Response_GameState(logger,matchEventHandler));
+        commandHandler.Add(typeof(Message_Response_GameAllConnected), new Handler_Response_GameState(logger,matchEventHandler));
         commandHandler.Add(typeof(Message_Update_MatchFinished), new Handler_Update_MatchFinished(logger,matchEventHandler));
     }
 

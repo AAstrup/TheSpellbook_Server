@@ -23,7 +23,7 @@ namespace Server
         }
         public static ServerConnectionInfo MatchMakerConnectionInfo()
         {
-            return new ServerConnectionInfo(ServerConfig.GetInt("PortOfMatchMaker1111"), ServerConfig.IpAddressOfMatchMaker);
+            return new ServerConnectionInfo(ServerConfig.GetInt("PortOfMatchMaker"), ServerConfig.IpAddressOfMatchMaker);
         }
         public static ServerConnectionInfo LocalConnectionInfo()
         {
