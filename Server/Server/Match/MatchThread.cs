@@ -1,4 +1,5 @@
 ﻿using Server;
+using ServerGameObjectExtension;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,7 @@ namespace Match
     /// </summary>
     public class MatchThread 
     {
+        List<IServerExtension> serverExtensions;
         private ILogger logger;
         public int PlayerCountExpected;
         private Dictionary<int, Server_ServerClient> GUIDToPlayerClient;
@@ -37,6 +39,7 @@ namespace Match
             clientsInfo = new List<Shared_PlayerInfo>();
             GUIDToPlayerClient = new Dictionary<int, Server_ServerClient>();
             PlayerCountExpected = clients.Count;
+            serverExtensions = MatchExtensionFactory.CreateExtensions();
             this.port = port;
             this.logger = logger;
         }
@@ -47,7 +50,7 @@ namespace Match
         /// </summary>
         public void ThreadStart()
         {
-            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
+            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this, serverExtensions);
             server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
             matchGameHandler.Init();
 

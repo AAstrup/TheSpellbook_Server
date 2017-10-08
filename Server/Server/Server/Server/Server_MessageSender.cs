@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 /// <summary>
@@ -23,5 +24,20 @@ public class Server_MessageSender
     {
         BinaryFormatter form = new BinaryFormatter();
         form.Serialize(server_ServerClient.tcp.GetStream(), serializableObject);
+    }
+
+    /// <summary>
+    /// Sends to all but a specific client
+    /// </summary>
+    /// <param name="msg">Message to send</param>
+    /// <param name="clientToAvoid">Client that shall not get the message</param>
+    /// <param name="clientList">All clients</param>
+    public void SendToAllButSpecific(object msg, Server_ServerClient clientToAvoid, List<Server_ServerClient> clientList)
+    {
+        foreach (var client in clientList)
+        {
+            if (client != clientToAvoid)
+                Send(msg,client);
+        }
     }
 }

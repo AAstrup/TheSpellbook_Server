@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerGameObjectExtension;
+using System;
 using System.Collections.Generic;
 
 namespace Match
@@ -8,12 +9,14 @@ namespace Match
         private Server_MessageSender sender;
         private MatchThread matchThread;
         ILogger logger;
+        private List<IServerExtension> serverExtensions;
 
-        public MessageHandler_Request_JoinGame(ILogger logger, Server_MessageSender sender,MatchThread matchThread)
+        public MessageHandler_Request_JoinGame(ILogger logger, Server_MessageSender sender,MatchThread matchThread, List<IServerExtension> serverExtensions)
         {
             this.sender = sender;
             this.matchThread = matchThread;
             this.logger = logger;
+            this.serverExtensions = serverExtensions;
         }
 
         /// <summary>
@@ -50,6 +53,12 @@ namespace Match
                 {
                     Message_Response_GameAllConnected gameData = new Message_Response_GameAllConnected(client.Value.info, playerInfoes);
                     sender.Send(gameData, client.Value);
+                    foreach (var extension in serverExtensions)
+                    {
+                        var msg = extension.GetMessageForClientSetup(client.Value);
+                        if(msg != null)
+                            matchThread.GetServer().messageSender.SendToAllButSpecific(msg,client.Value,matchThread.GetServer().clientManager.GetClients());
+                    }
                 }
             }
         }

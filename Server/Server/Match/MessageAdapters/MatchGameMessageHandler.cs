@@ -1,5 +1,7 @@
 ﻿using Server;
+using ServerGameObjectExtension;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Match
@@ -12,12 +14,14 @@ namespace Match
         private MatchThread matchThread;
         private ILogger logger;
         private MessageCommandHandlerServer commandHandler;
+        private List<IServerExtension> serverExtensions;
 
-        public MatchGameMessageHandler(ILogger logger, MatchThread matchThread)
+        public MatchGameMessageHandler(ILogger logger, MatchThread matchThread, List<IServerExtension> serverExtensions)
         {
             this.matchThread = matchThread;
             this.logger = logger;
             commandHandler = new MessageCommandHandlerServer();
+            this.serverExtensions = serverExtensions;
         }
 
         /// <summary>
@@ -57,7 +61,7 @@ namespace Match
         /// <param name="sender"></param>
         internal void Init()
         {
-            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread));
+            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread, serverExtensions));
 
         }
     }

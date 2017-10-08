@@ -23,6 +23,14 @@ namespace Server
                 throw new Exception("Appsetting for key '" + key + "' is missing, none were found or it was empty");
             return Int32.Parse(val);
         }
+
+        public static bool GetBool(string key)
+        {
+            string val = ConfigurationManager.AppSettings[key];
+            if (val == null)
+                throw new Exception("Appsetting for key '" + key + "' is missing, none were found or it was empty");
+            return val.Equals("true");
+        }
         //public static int PlayerCountInAMatch = 2;
     }
 }

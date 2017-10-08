@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D9CA2D4D-1048-4F0E-B21A-139700A8352E}</ProjectGuid>
+    <ProjectGuid>{B4FABB13-EF8F-43F6-BE5F-C143B768D531}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Match</RootNamespace>
-    <AssemblyName>Match</AssemblyName>
+    <RootNamespace>ClientServerSharedGameObjectMessages</RootNamespace>
+    <AssemblyName>ClientServerSharedGameObjectMessages</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -41,34 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\IMessageHandlerCommand.cs" />
-    <Compile Include="Handlers\MessageCommandHandlerServer.cs" />
-    <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
-    <Compile Include="Factories\MatchExtensionFactory.cs" />
-    <Compile Include="MessageAdapters\MatchGameMessageHandler.cs" />
-    <Compile Include="MatchThread.cs" />
+    <Compile Include="Common\Message_Common_Transform.cs" />
+    <Compile Include="ServerCommand\Message_ServerCommand_CreateGameObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ClientServerSharedGameObjectMessages\ClientServerSharedGameObjectMessages.csproj">
-      <Project>{b4fabb13-ef8f-43f6-be5f-c143b768d531}</Project>
-      <Name>ClientServerSharedGameObjectMessages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Messages\ClientServerShared.csproj">
-      <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
-      <Name>ClientServerShared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ServerGameObjectExtension\ServerGameObjectExtension.csproj">
-      <Project>{903c35f9-8c3b-49ce-a8b7-2f27090f8296}</Project>
-      <Name>ServerGameObjectExtension</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Server\ServerEndPoint.csproj">
-      <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
-      <Name>ServerEndPoint</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
