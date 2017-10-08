@@ -57,7 +57,7 @@ namespace Match
                     {
                         var msg = extension.GetMessageForClientSetup(client.Value);
                         if(msg != null)
-                            matchThread.GetServer().messageSender.SendToAllButSpecific(msg,client.Value,matchThread.GetServer().clientManager.GetClients());
+                            matchThread.GetServer().messageSender.SendToAll(msg,matchThread.GetServer().clientManager.GetClients());
                     }
                 }
             }

@@ -40,4 +40,17 @@ public class Server_MessageSender
                 Send(msg,client);
         }
     }
+
+    /// <summary>
+    /// Sends a message to a list of clients
+    /// </summary>
+    /// <param name="msg">Message to send</param>
+    /// <param name="clientList">List of clients</param>
+    public void SendToAll(object msg, List<Server_ServerClient> clientList)
+    {
+        foreach (var client in clientList)
+        {
+            Send(msg, client);
+        }
+    }
 }
