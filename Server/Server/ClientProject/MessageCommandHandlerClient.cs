@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Command pattern for message type to the respectaple handler
+/// </summary>
 public class MessageCommandHandlerClient
 {
     Dictionary<Type, IMessageHandlerCommandClient> commands;
+
     public MessageCommandHandlerClient()
     {
         commands = new Dictionary<Type, IMessageHandlerCommandClient>();
     }
+
+    public MessageCommandHandlerClient(Dictionary<Type, IMessageHandlerCommandClient> msgHandler)
+    {
+        commands = msgHandler;
+    }
+
     public void Add(Type msgType, IMessageHandlerCommandClient cmd)
     {
         commands.Add(msgType, cmd);

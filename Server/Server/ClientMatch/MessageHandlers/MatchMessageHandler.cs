@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 public class MatchMessageHandler : IMessageHandler
 {
@@ -7,13 +8,13 @@ public class MatchMessageHandler : IMessageHandler
     private MessageCommandHandlerClient commandHandler;
     ILogger logger;
 
-    public MatchMessageHandler(ILogger logger,IMatchEventHandler matchEventHandler)
+    public MatchMessageHandler(ILogger logger,IMatchEventHandler matchEventHandler, Dictionary<Type, IMessageHandlerCommandClient> msgHandler)
     {
         this.logger = logger;
         logger.Log("Match messagehandler started!");
 
         this.matchEventHandler = matchEventHandler;
-        commandHandler = new MessageCommandHandlerClient();
+        commandHandler = new MessageCommandHandlerClient(msgHandler);
         commandHandler.Add(typeof(Message_Response_GameState), new Handler_Response_GameState(logger,matchEventHandler));
         commandHandler.Add(typeof(Message_Update_MatchFinished), new Handler_Update_MatchFinished(logger,matchEventHandler));
     }

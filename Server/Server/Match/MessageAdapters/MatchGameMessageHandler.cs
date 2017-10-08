@@ -20,14 +20,34 @@ namespace Match
             commandHandler = new MessageCommandHandlerServer();
         }
 
+        /// <summary>
+        /// Handles messages sent by clients by using a command pattern if possible
+        /// Currently defaulting to forwarding messages to remaining clients if no command found
+        /// </summary>
+        /// <param name="data">Message sent</param>
+        /// <param name="client">Client sending</param>
         public void Handle(object data, Server_ServerClient client)
         {
             if (commandHandler.Contains(data.GetType()))
                 commandHandler.Execute(data.GetType(), data, client);
             else
             {
-                Console.WriteLine("Data type UKNOWN! Type: " + data.GetType().ToString());
-                throw new Exception("Data type UKNOWN! Type: " + data.GetType().ToString());
+                ForwardMessageToOtherClients(data, client);
+            }
+        }
+
+        /// <summary>
+        /// Forwards a message to all clients but the given one
+        /// Temporary implementation for handling unknown messages
+        /// </summary>
+        /// <param name="data">Message to be forwarded</param>
+        /// <param name="client">Client that original send it</param>
+        private void ForwardMessageToOtherClients(object data, Server_ServerClient client)
+        {
+            foreach (var otherClient in matchThread.GetServer().clientManager.GetClients())
+            {
+                if (client != otherClient)
+                    matchThread.GetServer().messageSender.Send(data, otherClient);
             }
         }
 

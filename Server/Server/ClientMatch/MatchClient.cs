@@ -1,4 +1,7 @@
-﻿public class MatchClient : IUnityComponentResetable
+﻿using System;
+using System.Collections.Generic;
+
+public class MatchClient : IUnityComponentResetable
 {
     private UpdateController updateController;
     private ILogger logger;
@@ -7,22 +10,42 @@
     private MatchMessageHandler messageHandler;
     private Client client;
 
-    public MatchClient(IMatchEventHandler EventHandler,ILogger logger,PersistentData persistentData)
+    /// <summary>
+    /// Creates a client without adding additional handlers
+    /// All default handlers trigger event in the IMatchEventHandler
+    /// </summary>
+    /// <param name="EventHandler">The events the default message handlers triggers</param>
+    /// <param name="logger">Logger to write logs</param>
+    /// <param name="persistentData">Persistent data expected to be setup by now</param>
+    public MatchClient(IMatchEventHandler EventHandler, ILogger logger, PersistentData persistentData) : 
+        this(EventHandler,logger,persistentData,new Dictionary<Type, IMessageHandlerCommandClient>())
+    {
+    }
+
+    /// <summary>
+    /// Creates a match client with additional message handlers
+    /// </summary>
+    /// <param name="EventHandler">The events the default message handlers triggers</param>
+    /// <param name="logger">Logger to write logs</param>
+    /// <param name="persistentData">Persistent data expected to be setup by now</param>
+    /// <param name="msgTypeToMsgHandler">The message handler provided. Keys are the type of message classes, and values are the handler for the respectable message</param>
+    public MatchClient(IMatchEventHandler EventHandler,ILogger logger,PersistentData persistentData, Dictionary<Type, IMessageHandlerCommandClient> msgTypeToMsgHandler)
     {
         this.logger = logger;
         this.persistentData = persistentData;
         this.EventHandler = EventHandler;
         EventHandler.SetUIState_Loading();
         updateController = new UpdateController();
-        StartOnlineClient();
+        StartOnlineClient(msgTypeToMsgHandler);
     }
 
     /// <summary>
     /// Starts the client for a match in online mode
     /// </summary>
-    private void StartOnlineClient()
+    /// <param name="msgTypeToMsgHandler">Message handlers provided from the game</param>
+    private void StartOnlineClient(Dictionary<Type, IMessageHandlerCommandClient> msgTypeToMsgHandler)
     {
-        messageHandler = new MatchMessageHandler(logger,EventHandler);
+        messageHandler = new MatchMessageHandler(logger,EventHandler, msgTypeToMsgHandler);
         client = new Client(this, new ClientConnectionInfo(persistentData.port, persistentData.ip), messageHandler, persistentData, logger);
         messageHandler.Init(client);
         Message_Request_JoinGame request = new Message_Request_JoinGame()
