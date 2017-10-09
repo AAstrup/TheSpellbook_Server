@@ -1,12 +1,19 @@
-﻿namespace ServerGameObjectExtension
+﻿using Server;
+using System.Collections.Generic;
+
+namespace ServerGameObjectExtension
 {
     public interface IServerExtension
     {
         /// <summary>
-        /// Get message requried to setup a client, if any
-        /// Returns null if nothing has to be send
+        /// Get messages requried to setup a client
         /// </summary>
         /// <param name="client"></param>
-        object GetMessageForClientSetup(Server_ServerClient client);
+        List<object> GetMessagesForClientSetup(Server_ServerClient client);
+
+        /// <summary>
+        /// Get the messagehandlers provided by the extension
+        /// </summary>
+        List<IMessageHandlerCommand> CreateMessageHandlers(ServerCore server);
     }
 }

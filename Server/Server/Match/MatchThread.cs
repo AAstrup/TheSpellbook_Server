@@ -50,9 +50,9 @@ namespace Match
         /// </summary>
         public void ThreadStart()
         {
-            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this, serverExtensions);
+            MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
             server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
-            matchGameHandler.Init();
+            matchGameHandler.Init(serverExtensions);
 
             while (!gameHasEnded)
             {

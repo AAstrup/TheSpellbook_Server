@@ -36,7 +36,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Handlers\IMessageHandlerCommand.cs" />
     <Compile Include="Handlers\MessageCommandHandlerServer.cs" />
     <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
     <Compile Include="Factories\MatchExtensionFactory.cs" />

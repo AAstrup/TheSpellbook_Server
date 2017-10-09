@@ -14,14 +14,12 @@ namespace Match
         private MatchThread matchThread;
         private ILogger logger;
         private MessageCommandHandlerServer commandHandler;
-        private List<IServerExtension> serverExtensions;
 
-        public MatchGameMessageHandler(ILogger logger, MatchThread matchThread, List<IServerExtension> serverExtensions)
+        public MatchGameMessageHandler(ILogger logger, MatchThread matchThread)
         {
             this.matchThread = matchThread;
             this.logger = logger;
             commandHandler = new MessageCommandHandlerServer();
-            this.serverExtensions = serverExtensions;
         }
 
         /// <summary>
@@ -56,13 +54,19 @@ namespace Match
         }
 
         /// <summary>
-        /// Setup handlers that requires a sender to reply with
+        /// Setup handlers that requires the ServerCore to be setup
         /// </summary>
         /// <param name="sender"></param>
-        internal void Init()
+        internal void Init(List<IServerExtension> serverExtensions)
         {
-            commandHandler.Add(typeof(Message_Request_JoinGame), new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread, serverExtensions));
-
+            commandHandler.Add( new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread, serverExtensions));
+            foreach (var extension in serverExtensions)
+            {
+                foreach (var msgHandler in extension.CreateMessageHandlers(matchThread.GetServer()))
+                {
+                    commandHandler.Add(msgHandler);
+                }
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿public interface IMessageHandler
+﻿using System;
+
+public interface IMessageHandler
 {
     void Handle(object data);
 }

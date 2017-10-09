@@ -3,6 +3,8 @@ using ServerGameObjectExtension.Factory;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Server;
+using ServerGameObjectExtension.Handlers;
 
 namespace ServerGameObjectExtension
 {
@@ -15,9 +17,18 @@ namespace ServerGameObjectExtension
             factoryCreateGameObject = new Factory_ServerCommand_CreateGameObject();
         }
 
-        public object GetMessageForClientSetup(Server_ServerClient client)
+        List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server)
         {
-            return CreateGameObject(client);
+            List<IMessageHandlerCommand> msgHandler = new List<IMessageHandlerCommand>();
+            msgHandler.Add(new MessageHandler_ClientRequest_CreateSpell(server));
+            return msgHandler;
+        }
+
+        public List<object> GetMessagesForClientSetup(Server_ServerClient client)
+        {
+            List<object> objs = new List<object>();
+            objs.Add(CreateGameObject(client));
+            return objs;
         }
 
         /// <summary>

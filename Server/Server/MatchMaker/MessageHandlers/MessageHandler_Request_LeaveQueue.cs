@@ -14,6 +14,12 @@ public class MessageHandler_Request_LeaveQueue :IMessageHandlerCommand
         this.manager = manager;
         this.matchMaker = matchMaker;
     }
+
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_Request_LeaveQueue);
+    }
+
     public void Handle(object objData, Server_ServerClient client)
     {
         manager.RemoveClient(client);

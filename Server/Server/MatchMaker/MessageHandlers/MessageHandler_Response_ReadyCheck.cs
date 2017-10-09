@@ -32,6 +32,11 @@ internal class MessageHandler_Response_ReadyCheck : IMessageHandlerCommand
         queuesRunningSorted.Add(matchQueue);
     }
 
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_ClientResponse_ReadyCheck);
+    }
+
     /// <summary>
     /// Recieved from players who has checked that they are ready
     /// </summary>

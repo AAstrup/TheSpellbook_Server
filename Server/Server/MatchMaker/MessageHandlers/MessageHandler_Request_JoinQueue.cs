@@ -26,4 +26,9 @@ public class MessageHandler_Request_JoinQueue : IMessageHandlerCommand
         var msg = new Message_Response_InQueue("You are now in queue, players in queue " + server.clientManager.GetClients().Count, client.info);
         server.messageSender.Send(msg,client);
     }
+
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_Request_JoinQueue);
+    }
 }

@@ -1,4 +1,5 @@
-﻿/// <summary>
+﻿using System;
+/// <summary>
 /// Message Handler responsible for handling messages recieved from the connection
 /// </summary>
 namespace Server

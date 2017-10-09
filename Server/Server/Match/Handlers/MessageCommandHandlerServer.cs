@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServerGameObjectExtension;
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -8,13 +9,14 @@ using System.Collections.Generic;
 public class MessageCommandHandlerServer
 {
     Dictionary<Type, IMessageHandlerCommand> commands;
+
     public MessageCommandHandlerServer()
     {
         commands = new Dictionary<Type, IMessageHandlerCommand>();
     }
-    public void Add(Type msgType,IMessageHandlerCommand cmd)
+    public void Add(IMessageHandlerCommand cmd)
     {
-        commands.Add(msgType,cmd);
+        commands.Add(cmd.GetMessageTypeSupported(), cmd);
     }
 
     public void Execute(Type msgType, object data,Server_ServerClient client)

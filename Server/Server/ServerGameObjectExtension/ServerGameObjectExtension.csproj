@@ -42,13 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factory\Factory_ServerCommand_CreateGameObject.cs" />
+    <Compile Include="Handlers\MessageHandler_ClientRequest_CreateSpell.cs" />
     <Compile Include="IServerExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerGameObjectExtensionWrapper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Handlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ClientServerSharedGameObjectMessages\ClientServerSharedGameObjectMessages.csproj">
       <Project>{b4fabb13-ef8f-43f6-be5f-c143b768d531}</Project>

@@ -18,9 +18,9 @@ public class Server_MessageHandler :IMessageHandler {
         this.matchMakerCore = matchMakerCore;
         this.server = server;
         commandHandler = new MessageCommandHandlerServer();
-        commandHandler.Add(typeof(Message_Request_JoinQueue), new MessageHandler_Request_JoinQueue(server, matchMakerCore));
-        commandHandler.Add(typeof(Message_Request_LeaveQueue), new MessageHandler_Request_LeaveQueue(server.clientManager, matchMakerCore));
-        commandHandler.Add(typeof(Message_ClientResponse_ReadyCheck), new MessageHandler_Response_ReadyCheck(matchMakerCore, server));
+        commandHandler.Add(new MessageHandler_Request_JoinQueue(server, matchMakerCore));
+        commandHandler.Add(new MessageHandler_Request_LeaveQueue(server.clientManager, matchMakerCore));
+        commandHandler.Add(new MessageHandler_Response_ReadyCheck(matchMakerCore, server));
     }
     /// <summary>
     /// The method responsible for getting a serialized object 

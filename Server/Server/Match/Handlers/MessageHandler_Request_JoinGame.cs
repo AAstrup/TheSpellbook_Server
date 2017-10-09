@@ -19,6 +19,11 @@ namespace Match
             this.serverExtensions = serverExtensions;
         }
 
+        public Type GetMessageTypeSupported()
+        {
+            return typeof(Message_Request_JoinGame);
+        }
+
         /// <summary>
         /// Will register a client to a game
         /// If all are registered the game starts
@@ -55,9 +60,12 @@ namespace Match
                     sender.Send(gameData, client.Value);
                     foreach (var extension in serverExtensions)
                     {
-                        var msg = extension.GetMessageForClientSetup(client.Value);
-                        if(msg != null)
-                            matchThread.GetServer().messageSender.SendToAll(msg,matchThread.GetServer().clientManager.GetClients());
+                        var msgList = extension.GetMessagesForClientSetup(client.Value);
+                        foreach (var msg in msgList)
+                        {
+                            if (msg != null)
+                                matchThread.GetServer().messageSender.SendToAll(msg, matchThread.GetServer().clientManager.GetClients());
+                        }
                     }
                 }
             }
