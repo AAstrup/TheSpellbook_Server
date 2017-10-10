@@ -46,7 +46,8 @@ public class MatchClient : IUnityComponentResetable
     private void StartOnlineClient(Dictionary<Type, IMessageHandlerCommandClient> msgTypeToMsgHandler)
     {
         messageHandler = new MatchMessageHandler(logger,EventHandler, msgTypeToMsgHandler);
-        client = new Client(this, new ClientConnectionInfo(persistentData.port, persistentData.ip), messageHandler, persistentData, logger);
+        var connectioninfo = new ClientConnectionInfo(persistentData.port, persistentData.ip);
+        client = new Client(this, connectioninfo, messageHandler, persistentData, logger);
         messageHandler.Init(client);
         Message_Request_JoinGame request = new Message_Request_JoinGame()
         {
