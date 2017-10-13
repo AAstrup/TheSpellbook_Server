@@ -8,7 +8,8 @@ namespace ClientServerSharedGameObjectMessages
         public int spellHitGmjID;
         public int playerGMJHit;
         public float hitDirectionX;
-        public float hitDirectionY;
         public float hitDirectionZ;
+        public float playerPosX;
+        public float playerPosZ;
     }
 }
