@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class Message_Command_PlayerMovementUpdate
+public class Message_ClientCommand_PlayerMovementUpdate
 {
     public int GMJGUID;
     public float currentXPos;

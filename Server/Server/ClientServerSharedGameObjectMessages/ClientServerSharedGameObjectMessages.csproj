@@ -42,7 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Message_Common_Transform.cs" />
-    <Compile Include="Message_Command_PlayerMovementUpdate.cs" />
+    <Compile Include="ClientCommand\Message_ClientCommand_GameObjectDied.cs" />
+    <Compile Include="ClientCommand\Message_ClientCommand_PlayerMovementUpdate.cs" />
     <Compile Include="ClientRequest\Message_ClientRequest_CreateSpell.cs" />
     <Compile Include="ClientCommand\Message_ClientCommand_SpellHit.cs" />
     <Compile Include="ServerCommand\Message_ServerCommand_CreateGameObject.cs" />
