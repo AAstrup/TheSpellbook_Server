@@ -77,4 +77,13 @@ public class MatchClient : IUnityComponentResetable
     {
         client.sender.Send(serializableObj);
     }
+
+    /// <summary>
+    /// Handle a message as if recieved from another client
+    /// </summary>
+    /// <param name="serializableObj"></param>
+    public void HandleLocalMessage(object serializableObj)
+    {
+        messageHandler.Handle(serializableObj);
+    }
 }
