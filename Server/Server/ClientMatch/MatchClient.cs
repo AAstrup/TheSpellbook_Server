@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class MatchClient : IUnityComponentResetable
+public class MatchClient : IUnityComponentResetable, IConnectionResultHandler
 {
     private UpdateController updateController;
     private ILogger logger;
@@ -47,14 +47,7 @@ public class MatchClient : IUnityComponentResetable
     {
         messageHandler = new MatchMessageHandler(logger,EventHandler, msgTypeToMsgHandler);
         var connectioninfo = new ClientConnectionInfo(persistentData.port, persistentData.ip);
-        client = new Client(this, connectioninfo, messageHandler, persistentData, logger);
-        messageHandler.Init(client);
-        Message_Request_JoinGame request = new Message_Request_JoinGame()
-        {
-            info = persistentData.PlayerInfo
-        };
-        client.sender.Send(request);
-        EventHandler.SetUIState_JoiningGame();
+        client = new Client(this, connectioninfo, messageHandler, persistentData, logger,this);
     }
 
     /// <summary>
@@ -66,7 +59,7 @@ public class MatchClient : IUnityComponentResetable
     {
         updateController.Update(deltaTime);
         if (client != null)
-            client.Update();
+            client.Update(deltaTime);
     }
 
     public void Clean()
@@ -85,5 +78,27 @@ public class MatchClient : IUnityComponentResetable
     public void HandleLocalMessage(object serializableObj)
     {
         messageHandler.Handle(serializableObj);
+    }
+
+    public void Setup_Succesful()
+    {
+        messageHandler.Init(client);
+        Message_Request_JoinGame request = new Message_Request_JoinGame()
+        {
+            info = persistentData.PlayerInfo
+        };
+        client.sender.Send(request);
+        EventHandler.SetUIState_JoiningGame();
+        EventHandler.ConnectedSuccesful();
+    }
+
+    public void Setup_Failed()
+    {
+        EventHandler.ConnectedFailed();
+    }
+
+    public void Setup_ConnectingAttempt(int connectionAttempts)
+    {
+        EventHandler.ConnectedAttempt(connectionAttempts);
     }
 }

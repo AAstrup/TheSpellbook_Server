@@ -47,11 +47,14 @@
     <Compile Include="Client_MessageReciever.cs" />
     <Compile Include="Client_MessageSender.cs" />
     <Compile Include="ClientConnectionInfo.cs" />
+    <Compile Include="Counter.cs" />
     <Compile Include="IClientConfig.cs" />
-    <Compile Include="IMessageHandler.cs" />
-    <Compile Include="IMessageHandlerCommand.cs" />
+    <Compile Include="IConnectionResultHandler.cs" />
+    <Compile Include="MessageHandler\IMessageHandler.cs" />
+    <Compile Include="MessageHandler\IMessageHandlerCommand.cs" />
     <Compile Include="IUnityComponentResetter.cs" />
     <Compile Include="MessageCommandHandlerClient.cs" />
+    <Compile Include="NonUserClientConfig.cs" />
     <Compile Include="PersistentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

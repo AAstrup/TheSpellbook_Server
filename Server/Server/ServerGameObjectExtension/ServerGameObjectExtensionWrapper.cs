@@ -32,9 +32,9 @@ namespace ServerGameObjectExtension
         }
 
         /// <summary>
-        /// Creates a GameObject
+        /// Creates a message for a GameObject creation
         /// </summary>
-        /// <param name="client">The client that this has </param>
+        /// <param name="client">The client that this GameObject belong to</param>
         /// <returns></returns>
         private Message_ServerCommand_CreateGameObject CreateGameObject(Server_ServerClient client)
         {

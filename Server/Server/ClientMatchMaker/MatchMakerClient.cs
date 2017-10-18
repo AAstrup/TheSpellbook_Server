@@ -5,7 +5,7 @@
 /// This requires no previous setup
 /// This class has to be updated to check for communication
 /// </summary>
-public class MatchMakerClient : IUnityComponentResetable
+public class MatchMakerClient : IUnityComponentResetable, IConnectionResultHandler
 {
     private MMMessageHandler messageHandler;
     Client client;
@@ -33,10 +33,7 @@ public class MatchMakerClient : IUnityComponentResetable
     {
         persistentData.PlayerInfo = new Shared_PlayerInfo() { name = inputName };
         messageHandler = new MMMessageHandler(this,updateController,logger,persistentData);
-        client = new Client(this, ClientConnectionInfo.MatchMakerConnectionInfo(clientConfig), messageHandler,persistentData,logger);
-        messageHandler.Init(client);
-        client.Register();
-        eventHandler.Connecting();
+        client = new Client(this, ClientConnectionInfo.MatchMakerConnectionInfo(clientConfig), messageHandler,persistentData,logger,this);
     }
 
     /// <summary>
@@ -56,7 +53,7 @@ public class MatchMakerClient : IUnityComponentResetable
     {
         updateController.Update(deltaTime);
         if (client != null)
-            client.Update();
+            client.Update(deltaTime);
     }
 
     public void LeaveQueue()
@@ -82,5 +79,23 @@ public class MatchMakerClient : IUnityComponentResetable
         };
         client.sender.Send(msg);
         logger.Log("Sending " + msg.GetType());
+    }
+
+    public void Setup_Succesful()
+    {
+        messageHandler.Init(client);
+        client.Register();
+        eventHandler.StartedConnecting();
+        eventHandler.ConnectingSuccesful();
+    }
+
+    public void Setup_Failed()
+    {
+        eventHandler.ConnectingFailed();
+    }
+
+    public void Setup_ConnectingAttempt(int connectionAttempts)
+    {
+        eventHandler.ConnectingAttempt(connectionAttempts);
     }
 }

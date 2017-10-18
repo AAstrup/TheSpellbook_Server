@@ -44,7 +44,6 @@
     <Compile Include="Client_MessageHandlers\Client_MessageHandler_InQueue.cs" />
     <Compile Include="Client_MessageHandlers\Client_MessageHandler_MatchFound.cs" />
     <Compile Include="Client_MessageHandlers\Client_MessageHandler_ReadyCheck.cs" />
-    <Compile Include="Client_MessageHandlers\Counter.cs" />
     <Compile Include="Client_MessageHandlers\MMMessageHandler.cs" />
     <Compile Include="IMMEventHandler.cs" />
     <Compile Include="MatchMakerClient.cs" />

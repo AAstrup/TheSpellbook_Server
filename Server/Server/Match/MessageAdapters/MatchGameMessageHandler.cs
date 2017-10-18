@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace Match
 {
     /// <summary>
-    /// Handles messages from the client when they are in a match
+    /// Handles messages from clients when they are in a match
     /// </summary>
     public class MatchGameMessageHandler : IMessageHandler
     {

@@ -16,11 +16,11 @@ public class Client
     PersistentData data;
     ILogger logger;
 
-    public Client(IUnityComponentResetable owner,ClientConnectionInfo connectionInfo, IMessageHandler messageHandler, PersistentData data,ILogger logger)
+    public Client(IUnityComponentResetable owner,ClientConnectionInfo connectionInfo, IMessageHandler messageHandler, PersistentData data,ILogger logger, IConnectionResultHandler connectionResultHandler)
     {
         this.owner = owner;
         this.logger = logger;
-        connection = new ClientConnection(connectionInfo,logger);
+        connection = new ClientConnection(connectionInfo,logger, connectionResultHandler);
         sender = new Client_MessageSender(connection,logger);
         this.messageHandler = messageHandler;
         reciever = new Client_MessageReciever(connection, messageHandler);
@@ -44,8 +44,9 @@ public class Client
     /// <summary>
     /// Checks for responses from the server
     /// </summary>
-    public void Update()
+    public void Update(float deltaTime)
     {
+        connection.Update(deltaTime);
         reciever.CheckForServerResponseMessages();
     }
 
