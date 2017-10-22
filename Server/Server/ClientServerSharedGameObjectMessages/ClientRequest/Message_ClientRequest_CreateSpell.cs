@@ -12,5 +12,5 @@ namespace ClientServerSharedGameObjectMessages
         public float zDir;
         public int ownerGUID;
     }
-    public enum SpellType { Fireball }
+    public enum SpellType { Fireball, Explode }
 }
