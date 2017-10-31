@@ -60,6 +60,7 @@ namespace Match
         internal void Init(List<IServerExtension> serverExtensions)
         {
             commandHandler.Add( new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread, serverExtensions));
+            commandHandler.Add(new MessageHandler_ServerRoundTrip_Ping(logger, matchThread.GetServer().messageSender, matchThread, serverExtensions));
             foreach (var extension in serverExtensions)
             {
                 foreach (var msgHandler in extension.CreateMessageHandlers(matchThread.GetServer()))

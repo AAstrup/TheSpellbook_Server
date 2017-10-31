@@ -11,6 +11,11 @@ public class Handler_Update_MatchFinished : IMessageHandlerCommandClient
         this.logger = logger;
     }
 
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_Update_MatchFinished);
+    }
+
     public void Handle(object objdata)
     {
         var data = (Message_Update_MatchFinished)objdata;

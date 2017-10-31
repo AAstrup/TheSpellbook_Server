@@ -7,6 +7,11 @@ namespace MatchMaker
     /// </summary>
     internal class ConsoleLogger : ILogger
     {
+        public void DebugLog(string s)
+        {
+            System.Console.WriteLine("Logger - "+s);
+        }
+
         public void Log(string s)
         {
             System.Console.WriteLine("Logger - "+s);

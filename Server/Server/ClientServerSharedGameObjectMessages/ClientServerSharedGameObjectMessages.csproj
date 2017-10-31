@@ -41,15 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientRequest\Message_ClientRequest_CreateSpellInStaticPosition.cs" />
     <Compile Include="Common\Message_Common_Transform.cs" />
     <Compile Include="ClientCommand\Message_ClientCommand_GameObjectDied.cs" />
     <Compile Include="ClientCommand\Message_ClientCommand_PlayerMovementUpdate.cs" />
-    <Compile Include="ClientRequest\Message_ClientRequest_CreateSpell.cs" />
+    <Compile Include="ClientRequest\Message_ClientRequest_CreateSpellWithDirection.cs" />
     <Compile Include="ClientCommand\Message_ClientCommand_SpellHit.cs" />
     <Compile Include="ServerCommand\Message_ServerCommand_CreateGameObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerCommand\Message_ServerCommand_RoundReset.cs" />
-    <Compile Include="ServerResponse\Message_ServerResponse_CreateSpell.cs" />
+    <Compile Include="ServerResponse\Message_ServerResponse_CreateSpellInStaticPosition.cs" />
+    <Compile Include="ServerResponse\Message_ServerResponse_CreateSpellWithDirection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

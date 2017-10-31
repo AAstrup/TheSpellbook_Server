@@ -11,6 +11,11 @@ internal class Handler_Response_GameState : IMessageHandlerCommandClient
         this.matchEventHandler = matchEventHandler;
     }
 
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_Response_GameAllConnected);
+    }
+
     public void Handle(object objdata)
     {
         var data = (Message_Response_GameAllConnected)objdata;

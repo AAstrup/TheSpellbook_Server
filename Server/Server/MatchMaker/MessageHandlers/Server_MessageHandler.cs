@@ -30,7 +30,6 @@ public class Server_MessageHandler :IMessageHandler {
     /// <param name="client"></param>
     public void Handle(object data, Server_ServerClient client)
     {
-        Console.WriteLine("Data recieved of type " + data.ToString());
         if(commandHandler.Contains(data.GetType()))
             commandHandler.Execute(data.GetType(),data,client);
         else

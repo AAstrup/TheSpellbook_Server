@@ -16,6 +16,11 @@ internal class Client_MessageHandler_MatchFound : IMessageHandlerCommandClient
         this.client = client;
     }
 
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_Update_MatchFound);
+    }
+
     public void Handle(object objdata)
     {
         var data = (Message_Update_MatchFound)objdata; 

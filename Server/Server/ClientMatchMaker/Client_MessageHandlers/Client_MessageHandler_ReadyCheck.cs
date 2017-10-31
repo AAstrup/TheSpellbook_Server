@@ -33,4 +33,9 @@ internal class Client_MessageHandler_ReadyCheck : IMessageHandlerCommandClient
     {
         counter.Update(deltaTime);
     }
+
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_ServerRequest_ReadyCheck);
+    }
 }

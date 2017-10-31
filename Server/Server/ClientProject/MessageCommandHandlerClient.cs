@@ -18,9 +18,9 @@ public class MessageCommandHandlerClient
         commands = msgHandler;
     }
 
-    public void Add(Type msgType, IMessageHandlerCommandClient cmd)
+    public void Add( IMessageHandlerCommandClient cmd)
     {
-        commands.Add(msgType, cmd);
+        commands.Add(cmd.GetMessageTypeSupported(), cmd);
     }
 
     public void Execute(Type msgType, object data)

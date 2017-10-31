@@ -13,6 +13,11 @@ internal class Client_MessageHandler_InQueue : IMessageHandlerCommandClient
         this.guiHandler = guiHandler;
     }
 
+    public Type GetMessageTypeSupported()
+    {
+        return typeof(Message_Response_InQueue);
+    }
+
     public void Handle(object objdata)
     {
         var data = (Message_Response_InQueue)objdata;

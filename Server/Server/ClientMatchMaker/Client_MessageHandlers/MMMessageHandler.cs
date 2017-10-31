@@ -32,11 +32,11 @@ public class MMMessageHandler : IMessageHandler
     {
         this.client = client;
 
-        commandHandler.Add(typeof(Message_Response_InQueue), new Client_MessageHandler_InQueue(logger, persistentData, networkTransmitter.eventHandler));
-        commandHandler.Add(typeof(Message_Update_MatchFound), new Client_MessageHandler_MatchFound(networkTransmitter.eventHandler, client, logger, persistentData));
+        commandHandler.Add( new Client_MessageHandler_InQueue(logger, persistentData, networkTransmitter.eventHandler));
+        commandHandler.Add( new Client_MessageHandler_MatchFound(networkTransmitter.eventHandler, client, logger, persistentData));
 
         handler_ReadyCheck = new Client_MessageHandler_ReadyCheck(updateController, client, networkTransmitter);
-        commandHandler.Add(typeof(Message_ServerRequest_ReadyCheck), handler_ReadyCheck);
+        commandHandler.Add(handler_ReadyCheck);
     }
 
     public void Handle(object data)

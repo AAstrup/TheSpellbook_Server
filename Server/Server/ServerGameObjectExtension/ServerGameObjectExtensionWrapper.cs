@@ -20,7 +20,9 @@ namespace ServerGameObjectExtension
         List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server)
         {
             List<IMessageHandlerCommand> msgHandler = new List<IMessageHandlerCommand>();
-            msgHandler.Add(new MessageHandler_ClientRequest_CreateSpell(server));
+            SpellGUIDGenerator spellGUIDGenerator = new SpellGUIDGenerator();
+            msgHandler.Add(new MessageHandler_ClientRequest_CreateSpellWithDirection(server, spellGUIDGenerator));
+            msgHandler.Add(new MessageHandler_ClientRequest_CreateSpellInStaticPosition(server, spellGUIDGenerator));
             return msgHandler;
         }
 

@@ -20,6 +20,8 @@ namespace Match
         private ServerCore server;
         private bool gameHasEnded;
         private List<Shared_PlayerInfo> clientsInfo;
+        public Updater updater;
+        public Clock clock;
 
         /// <summary>
         /// Creates a new Match class which can be used for running a server for a match
@@ -30,12 +32,14 @@ namespace Match
         /// <param name="logger">Logger used to log info</param>
         public MatchThread(List<Server_ServerClient> clients, int port, ILogger logger)
         {
+            clock = new Clock();
             remainingPlayerGUIDsToConnect = new List<int>();
             foreach (var item in clients)
             {
                 remainingPlayerGUIDsToConnect.Add(item.info.GUID);
             }
 
+            updater = new Updater();
             clientsInfo = new List<Shared_PlayerInfo>();
             GUIDToPlayerClient = new Dictionary<int, Server_ServerClient>();
             PlayerCountExpected = clients.Count;
@@ -45,7 +49,7 @@ namespace Match
         }
 
         /// <summary>
-        /// Always call this method on a new thread
+        /// Only call this method on an another thread 
         /// Starts the thread running the match
         /// </summary>
         public void ThreadStart()
@@ -56,6 +60,7 @@ namespace Match
 
             while (!gameHasEnded)
             {
+                updater.Update();
                 server.Update();
             }
 

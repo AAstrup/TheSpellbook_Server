@@ -15,8 +15,8 @@ public class MatchMessageHandler : IMessageHandler
 
         this.matchEventHandler = matchEventHandler;
         commandHandler = new MessageCommandHandlerClient(msgHandler);
-        commandHandler.Add(typeof(Message_Response_GameAllConnected), new Handler_Response_GameState(logger,matchEventHandler));
-        commandHandler.Add(typeof(Message_Update_MatchFinished), new Handler_Update_MatchFinished(logger,matchEventHandler));
+        commandHandler.Add( new Handler_Response_GameState(logger,matchEventHandler));
+        commandHandler.Add(new Handler_Update_MatchFinished(logger,matchEventHandler));
     }
 
     public void Handle(object data)
@@ -32,5 +32,6 @@ public class MatchMessageHandler : IMessageHandler
 
     internal void Init(Client client)
     {
+        commandHandler.Add(new Handler_Response_Ping(matchEventHandler,client.sender));
     }
 }

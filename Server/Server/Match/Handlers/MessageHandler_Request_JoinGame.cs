@@ -4,17 +4,21 @@ using System.Collections.Generic;
 
 namespace Match
 {
-    public class MessageHandler_Request_JoinGame : IMessageHandlerCommand
+    public class MessageHandler_Request_JoinGame : IMessageHandlerCommand, IUpdatable
     {
         private Server_MessageSender sender;
         private MatchThread matchThread;
         ILogger logger;
         private List<IServerExtension> serverExtensions;
+        float timeBetweenInitialPings = 0.2f;
+        public Dictionary<Server_ServerClient, float> lastPingTime;
 
         public MessageHandler_Request_JoinGame(ILogger logger, Server_MessageSender sender,MatchThread matchThread, List<IServerExtension> serverExtensions)
         {
             this.sender = sender;
             this.matchThread = matchThread;
+            matchThread.updater.Add(this);
+            lastPingTime = new Dictionary<Server_ServerClient, float>();
             this.logger = logger;
             this.serverExtensions = serverExtensions;
         }
@@ -34,6 +38,7 @@ namespace Match
         {
             Message_Request_JoinGame data = (Message_Request_JoinGame)objData;
             client.info = data.info;
+            lastPingTime.Add(client, 0);
 
             for (int i = 0; i < matchThread.remainingPlayerGUIDsToConnect.Count; i++)
             {
@@ -42,33 +47,71 @@ namespace Match
                     matchThread.RegisterClientInfo(client);
                 }
             }
-            CheckIfTheGameCanBeStarted();
+            SendPing(client);
+        }
+
+        /// <summary>
+        /// On update it checks that all clients has recorded their ping
+        /// If ping count is met and all players have connected the game starts
+        /// </summary>
+        public void Update()
+        {
+            bool ready = true;
+            foreach (var player in matchThread.GetConnectedClients())
+            {
+                if (!player.Value.HasSufficientPingsRecorded())
+                {
+                    ready = false;
+                    if (matchThread.clock.GetTime() > (lastPingTime[player.Value] + timeBetweenInitialPings))
+                    {
+                        lastPingTime[player.Value] = matchThread.clock.GetTime();
+                        SendPing(player.Value);
+                    }
+                }
+            }
+            if (matchThread.GetConnectedClientsInfo().Count != matchThread.PlayerCountExpected)
+                ready = false;
+            if (ready)
+                StartGame();
+        }
+
+        /// <summary>
+        /// Sends a ping message to a player
+        /// </summary>
+        /// <param name="player"></param>
+        private void SendPing(Server_ServerClient player)
+        {
+            Message_ServerRoundTrip_Ping msg = new Message_ServerRoundTrip_Ping()
+            {
+                timeSend = matchThread.clock.GetTime()
+            };
+            matchThread.GetServer().messageSender.Send(msg, player);
+            logger.DebugLog("SendingPing");
         }
 
         /// <summary>
         /// Check if the game can be started
         /// Current condition checks if the count of connected players matches the expected amount
         /// </summary>
-        private void CheckIfTheGameCanBeStarted()
+        private void StartGame()
         {
-            if (matchThread.GetConnectedClientsInfo().Count == matchThread.PlayerCountExpected)
+            List<Shared_PlayerInfo> playerInfoes = matchThread.GetConnectedClientsInfo();
+            foreach (var client in matchThread.GetConnectedClients())
             {
-                List<Shared_PlayerInfo> playerInfoes = matchThread.GetConnectedClientsInfo();
-                foreach (var client in matchThread.GetConnectedClients())
+                logger.Log("Starting game - client ping " + client.Value.GetPingInMiliSeconds());
+                Message_Response_GameAllConnected gameData = new Message_Response_GameAllConnected(client.Value.info, playerInfoes);
+                sender.Send(gameData, client.Value);
+                foreach (var extension in serverExtensions)
                 {
-                    Message_Response_GameAllConnected gameData = new Message_Response_GameAllConnected(client.Value.info, playerInfoes);
-                    sender.Send(gameData, client.Value);
-                    foreach (var extension in serverExtensions)
+                    var msgList = extension.GetMessagesForClientSetup(client.Value);
+                    foreach (var msg in msgList)
                     {
-                        var msgList = extension.GetMessagesForClientSetup(client.Value);
-                        foreach (var msg in msgList)
-                        {
-                            if (msg != null)
-                                matchThread.GetServer().messageSender.SendToAll(msg, matchThread.GetServer().clientManager.GetClients());
-                        }
+                        if (msg != null)
+                            matchThread.GetServer().messageSender.SendToAll(msg, matchThread.GetServer().clientManager.GetClients());
                     }
                 }
             }
+            matchThread.updater.Remove(this);
         }
     }
 }

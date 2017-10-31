@@ -31,7 +31,6 @@ public class Server_MessageReciever
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 var data = formatter.Deserialize(networkStream);
-                Console.WriteLine("Data recieved");
 
                 if (data != null)
                 {

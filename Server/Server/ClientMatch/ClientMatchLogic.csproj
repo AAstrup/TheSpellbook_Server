@@ -44,6 +44,7 @@
     <Compile Include="IMatchEventHandler.cs" />
     <Compile Include="MatchClient.cs" />
     <Compile Include="MessageHandlers\Handler_Response_GameState.cs" />
+    <Compile Include="MessageHandlers\Handler_Response_Ping.cs" />
     <Compile Include="MessageHandlers\Handler_Update_MatchFinished.cs" />
     <Compile Include="MessageHandlers\MatchMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
