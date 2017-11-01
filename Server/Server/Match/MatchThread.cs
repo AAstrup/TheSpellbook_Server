@@ -60,6 +60,7 @@ namespace Match
 
             while (!gameHasEnded)
             {
+                clock.PRINT();
                 updater.Update();
                 server.Update();
             }

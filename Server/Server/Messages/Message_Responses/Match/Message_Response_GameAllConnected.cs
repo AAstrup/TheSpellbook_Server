@@ -8,12 +8,17 @@ using System.Collections.Generic;
 public class Message_Response_GameAllConnected
 {   
     public Shared_PlayerInfo requestingPlayer;
+    /// <summary>
+    /// This has been lag compensated
+    /// </summary>
+    public double gameClockTime;
     public List<Shared_PlayerInfo> AllPlayers;
 
-    public Message_Response_GameAllConnected(Shared_PlayerInfo requestingPlayer, List<Shared_PlayerInfo> AllPlayers)
+    public Message_Response_GameAllConnected(Shared_PlayerInfo requestingPlayer, List<Shared_PlayerInfo> AllPlayers,double gameClockTime)
     {
         this.requestingPlayer = requestingPlayer;
         this.AllPlayers = AllPlayers;
+        this.gameClockTime = gameClockTime;
     }
 }
  

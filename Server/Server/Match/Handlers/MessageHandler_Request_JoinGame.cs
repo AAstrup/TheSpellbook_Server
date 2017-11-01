@@ -10,7 +10,7 @@ namespace Match
         private MatchThread matchThread;
         ILogger logger;
         private List<IServerExtension> serverExtensions;
-        float timeBetweenInitialPings = 0.2f;
+        float timeBetweenInitialPings = 1000f;
         public Dictionary<Server_ServerClient, float> lastPingTime;
 
         public MessageHandler_Request_JoinGame(ILogger logger, Server_MessageSender sender,MatchThread matchThread, List<IServerExtension> serverExtensions)
@@ -86,7 +86,6 @@ namespace Match
                 timeSend = matchThread.clock.GetTime()
             };
             matchThread.GetServer().messageSender.Send(msg, player);
-            logger.DebugLog("SendingPing");
         }
 
         /// <summary>
@@ -98,8 +97,8 @@ namespace Match
             List<Shared_PlayerInfo> playerInfoes = matchThread.GetConnectedClientsInfo();
             foreach (var client in matchThread.GetConnectedClients())
             {
-                logger.Log("Starting game - client ping " + client.Value.GetPingInMiliSeconds());
-                Message_Response_GameAllConnected gameData = new Message_Response_GameAllConnected(client.Value.info, playerInfoes);
+                Message_Response_GameAllConnected gameData = new Message_Response_GameAllConnected(
+                    client.Value.info, playerInfoes, matchThread.clock.GetTimeForClient(client.Value));
                 sender.Send(gameData, client.Value);
                 foreach (var extension in serverExtensions)
                 {
