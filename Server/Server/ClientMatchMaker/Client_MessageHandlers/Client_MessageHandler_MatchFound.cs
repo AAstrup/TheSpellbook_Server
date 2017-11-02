@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 internal class Client_MessageHandler_MatchFound : IMessageHandlerCommandClient
 {

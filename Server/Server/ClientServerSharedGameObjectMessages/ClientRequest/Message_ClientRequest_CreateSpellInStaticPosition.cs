@@ -10,8 +10,8 @@ namespace ClientServerSharedGameObjectMessages
         public float zPos;
         public int ownerGUID;
         /// <summary>
-        /// The time of which the spell should be fired on the synchronized clock
+        /// Time of the clock on which the spell were requested to be casted
         /// </summary>
-        public float fireClockTime;
+        public double TimeStartedCasting;
     }
 }
