@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 /// <summary>
 /// Responsible for sending messages to the server
 /// </summary>
-public class Client_MessageSender
+public class Client_MessageSender : IClient_MessageSender
 {
     private ClientConnection connection;
     ILogger logger;

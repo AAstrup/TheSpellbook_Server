@@ -30,12 +30,13 @@ public class Server_MessageHandler :IMessageHandler {
     /// <param name="client"></param>
     public void Handle(object data, Server_ServerClient client)
     {
-        if(commandHandler.Contains(data.GetType()))
+        Console.WriteLine("Data type recieved of type " + data.GetType().ToString());
+        if (commandHandler.Contains(data.GetType()))
             commandHandler.Execute(data.GetType(),data,client);
         else
         {
-            Console.WriteLine("Data type UKNOWN! Type: " + data.GetType().ToString());
-            throw new Exception("Data type UKNOWN! Type: " + data.GetType().ToString());
+            Console.WriteLine("Data type UNKNOWN! Type: " + data.GetType().ToString());
+            throw new Exception("Data type UNKNOWN! Type: " + data.GetType().ToString());
         }
     }
 

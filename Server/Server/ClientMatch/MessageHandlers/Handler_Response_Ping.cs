@@ -3,9 +3,9 @@
 internal class Handler_Response_Ping : IMessageHandlerCommandClient
 {
     private IMatchEventHandler matchEventHandler;
-    private Client_MessageSender sender;
+    private IClient_MessageSender sender;
 
-    public Handler_Response_Ping(IMatchEventHandler matchEventHandler, Client_MessageSender sender)
+    public Handler_Response_Ping(IMatchEventHandler matchEventHandler, IClient_MessageSender sender)
     {
         this.matchEventHandler = matchEventHandler;
         this.sender = sender;

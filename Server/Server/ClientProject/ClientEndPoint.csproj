@@ -43,19 +43,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
-    <Compile Include="ClientConnection.cs" />
-    <Compile Include="Client_MessageReciever.cs" />
-    <Compile Include="Client_MessageSender.cs" />
-    <Compile Include="ClientConnectionInfo.cs" />
-    <Compile Include="Counter.cs" />
-    <Compile Include="IClientConfig.cs" />
-    <Compile Include="IConnectionResultHandler.cs" />
+    <Compile Include="Connection\ClientConnection.cs" />
+    <Compile Include="MessageReciever\Client_MessageReciever.cs" />
+    <Compile Include="MessageSender\Client_MessageSenderFactory.cs" />
+    <Compile Include="MessageSender\Client_MessageSender.cs" />
+    <Compile Include="Connection\ClientConnectionInfo.cs" />
+    <Compile Include="Config\IClientConfig.cs" />
+    <Compile Include="MessageSender\Client_MessageSender_FakeDelay.cs" />
+    <Compile Include="MessageSender\IClient_MessageSender.cs" />
+    <Compile Include="Connection\IConnectionResultHandler.cs" />
     <Compile Include="MessageHandler\IMessageHandler.cs" />
     <Compile Include="MessageHandler\IMessageHandlerCommand.cs" />
     <Compile Include="IUnityComponentResetter.cs" />
     <Compile Include="MessageCommandHandlerClient.cs" />
-    <Compile Include="NonUserClientConfig.cs" />
-    <Compile Include="PersistentData.cs" />
+    <Compile Include="MessageSender\IClock.cs" />
+    <Compile Include="Config\NonUserClientConfig.cs" />
+    <Compile Include="Config\PersistentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

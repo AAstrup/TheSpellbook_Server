@@ -30,6 +30,7 @@ namespace Match
         /// <param name="client">Client sending</param>
         public void Handle(object data, Server_ServerClient client)
         {
+            Console.WriteLine("Data type recieved of type " + data.GetType().ToString());
             if (commandHandler.Contains(data.GetType()))
                 commandHandler.Execute(data.GetType(), data, client);
             else

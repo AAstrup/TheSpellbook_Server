@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class MatchClient : IUnityComponentResetable, IConnectionResultHandler
 {
     private UpdateController updateController;
+    private IClientConfig config;
     private ILogger logger;
     private PersistentData persistentData;
     private IMatchEventHandler EventHandler;
@@ -17,8 +18,8 @@ public class MatchClient : IUnityComponentResetable, IConnectionResultHandler
     /// <param name="EventHandler">The events the default message handlers triggers</param>
     /// <param name="logger">Logger to write logs</param>
     /// <param name="persistentData">Persistent data expected to be setup by now</param>
-    public MatchClient(IMatchEventHandler EventHandler, ILogger logger, PersistentData persistentData) : 
-        this(EventHandler,logger,persistentData,new Dictionary<Type, IMessageHandlerCommandClient>())
+    public MatchClient(IMatchEventHandler EventHandler, ILogger logger, PersistentData persistentData, IClientConfig config) : 
+        this(EventHandler,logger,persistentData,new Dictionary<Type, IMessageHandlerCommandClient>(), config)
     {
     }
 
@@ -29,8 +30,9 @@ public class MatchClient : IUnityComponentResetable, IConnectionResultHandler
     /// <param name="logger">Logger to write logs</param>
     /// <param name="persistentData">Persistent data expected to be setup by now</param>
     /// <param name="msgTypeToMsgHandler">The message handler provided. Keys are the type of message classes, and values are the handler for the respectable message</param>
-    public MatchClient(IMatchEventHandler EventHandler,ILogger logger,PersistentData persistentData, Dictionary<Type, IMessageHandlerCommandClient> msgTypeToMsgHandler)
+    public MatchClient(IMatchEventHandler EventHandler,ILogger logger,PersistentData persistentData, Dictionary<Type, IMessageHandlerCommandClient> msgTypeToMsgHandler,IClientConfig config)
     {
+        this.config = config;
         this.logger = logger;
         this.persistentData = persistentData;
         this.EventHandler = EventHandler;
@@ -47,7 +49,7 @@ public class MatchClient : IUnityComponentResetable, IConnectionResultHandler
     {
         messageHandler = new MatchMessageHandler(logger,EventHandler, msgTypeToMsgHandler);
         var connectioninfo = new ClientConnectionInfo(persistentData.port, persistentData.ip);
-        client = new Client(this, connectioninfo, messageHandler, persistentData, logger,this);
+        client = new Client(this, connectioninfo, messageHandler, persistentData, logger,this,config);
     }
 
     /// <summary>

@@ -33,7 +33,7 @@ public class MatchMakerClient : IUnityComponentResetable, IConnectionResultHandl
     {
         persistentData.PlayerInfo = new Shared_PlayerInfo() { name = inputName };
         messageHandler = new MMMessageHandler(this,updateController,logger,persistentData);
-        client = new Client(this, ClientConnectionInfo.MatchMakerConnectionInfo(clientConfig), messageHandler,persistentData,logger,this);
+        client = new Client(this, ClientConnectionInfo.MatchMakerConnectionInfo(clientConfig), messageHandler,persistentData,logger,this, clientConfig);
     }
 
     /// <summary>

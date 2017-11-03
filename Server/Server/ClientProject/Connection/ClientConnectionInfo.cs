@@ -9,12 +9,9 @@ using System.Net;
 public class ClientConnectionInfo
 {
     public string Ip;
-    //public delegate void ConnectionGotten(ClientConnection connection);
-    //private ConnectionGotten connectionGottenMethodToInvoke;
     public int Port;
     public ClientConnectionInfo(int Port, string Ip)
     {
-        //this.connectionGottenMethodToInvoke = connectionGottenMethodToInvoke;
         this.Port = Port;
         this.Ip = Ip;
     }

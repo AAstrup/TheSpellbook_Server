@@ -8,4 +8,8 @@ public class Message_ClientCommand_PlayerMovementUpdate
     public float currentZPos;
     public float moveTargetXPos;
     public float moveTargetZPos;
+    /// <summary>
+    /// Time of the clock on which the spell were requested to be casted
+    /// </summary>
+    public double TimeStartedMoving;
 }
