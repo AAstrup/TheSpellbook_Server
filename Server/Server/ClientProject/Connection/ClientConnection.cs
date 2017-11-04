@@ -42,7 +42,7 @@ public class ClientConnection
         this.host = host;
         this.port = port;
         connectionAttempts = 0;
-        CurrentConnectionSeconds = 0f;
+        CurrentConnectionSeconds = NonUserClientConfig.ConnectionWaitTimeSeconds;
         logger.Log("Connecting started");
     }
 
@@ -54,7 +54,7 @@ public class ClientConnection
         logger.Log("Connecting updated, seconds " + CurrentConnectionSeconds + " total time waiting for " + NonUserClientConfig.ConnectionWaitTimeSeconds
             + ". connection attempt " + connectionAttempts + " out of " + NonUserClientConfig.maxConnectionAttempts);
 
-        if (CurrentConnectionSeconds < NonUserClientConfig.ConnectionWaitTimeSeconds && connectionAttempts <= NonUserClientConfig.maxConnectionAttempts)
+        if (CurrentConnectionSeconds > NonUserClientConfig.ConnectionWaitTimeSeconds && connectionAttempts <= NonUserClientConfig.maxConnectionAttempts)
         {
             CurrentConnectionSeconds = 0f;
             ConnectAttempt();

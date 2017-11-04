@@ -50,7 +50,7 @@ public class Client
     /// </summary>
     public void Update(float deltaTime)
     {
-        connection.Update(deltaTime); TJEK AT BESKEDEN SENDES HERI!!!
+        connection.Update(deltaTime); //TJEK AT BESKEDEN SENDES HERI!!!
         reciever.CheckForServerResponseMessages();
         if(ClockUpdateEvent != null)
             ClockUpdateEvent.Invoke(config.GetClock().GetTimeInMiliSeconds());

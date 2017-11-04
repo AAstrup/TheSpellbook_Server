@@ -7,8 +7,11 @@ internal class Client_MessageSender_FakeDelay : IClient_MessageSender
     List<FakeDelayMessage> messagesToSend;
     private ClientConnection connection;
     ILogger logger;
+    private int delay;
+
     public Client_MessageSender_FakeDelay(int delay,IClock clock, ClientConnection connection, ILogger logger,Client client)
     {
+        this.delay = delay;
         client.ClockUpdateEvent += Update;
         this.clock = clock;
         messagesToSend = new List<FakeDelayMessage>();
@@ -27,7 +30,8 @@ internal class Client_MessageSender_FakeDelay : IClient_MessageSender
             logger.Log("Socket not ready, message not set!");
             return;
         }
-        messagesToSend.Add(new FakeDelayMessage(clock.GetTimeInMiliSeconds(), serializable));
+        messagesToSend.Add(new FakeDelayMessage(clock.GetTimeInMiliSeconds() + delay, serializable));
+        logger.Log("Queuing message");
     }
 
     /// <summary>
@@ -50,6 +54,7 @@ internal class Client_MessageSender_FakeDelay : IClient_MessageSender
             BinaryFormatter form = new BinaryFormatter();
             form.Serialize(connection.GetSocket().GetStream(), messagesToSend[0].msg);
             messagesToSend.RemoveAt(0);
+            logger.Log("Sending queued message");
         }
     }
 
