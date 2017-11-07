@@ -22,6 +22,7 @@ namespace Match
         private List<Shared_PlayerInfo> clientsInfo;
         public Updater updater;
         public Clock clock;
+        public PingDeterminer pingDeterminer; 
 
         /// <summary>
         /// Creates a new Match class which can be used for running a server for a match
@@ -56,6 +57,7 @@ namespace Match
         {
             MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
             server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
+            pingDeterminer = new PingDeterminer(server.clientManager, clock);
             matchGameHandler.Init(serverExtensions);
 
             while (!gameHasEnded)

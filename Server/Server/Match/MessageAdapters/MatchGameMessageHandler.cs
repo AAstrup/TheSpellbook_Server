@@ -64,7 +64,7 @@ namespace Match
             commandHandler.Add(new MessageHandler_ServerRoundTrip_Ping(logger, matchThread.GetServer().messageSender, matchThread, serverExtensions));
             foreach (var extension in serverExtensions)
             {
-                foreach (var msgHandler in extension.CreateMessageHandlers(matchThread.GetServer()))
+                foreach (var msgHandler in extension.CreateMessageHandlers(matchThread.GetServer(), matchThread.pingDeterminer))
                 {
                     commandHandler.Add(msgHandler);
                 }

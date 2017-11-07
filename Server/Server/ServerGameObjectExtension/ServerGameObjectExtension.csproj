@@ -44,7 +44,8 @@
     <Compile Include="Factory\Factory_ServerCommand_CreateGameObject.cs" />
     <Compile Include="Handlers\MessageHandler_ClientRequest_CreateSpellWithDirection.cs" />
     <Compile Include="IServerExtension.cs" />
-    <Compile Include="MessageHandler_ClientRequest_CreateSpellInStaticPosition.cs" />
+    <Compile Include="Handlers\MessageHandler_ClientRequest_CreateSpellInStaticPosition.cs" />
+    <Compile Include="Handlers\MessageHandler_ClientRequest_PlayerMovementUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerGameObjectExtensionWrapper.cs" />
     <Compile Include="SpellGUIDGenerator.cs" />

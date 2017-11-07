@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Server;
 using ServerGameObjectExtension.Handlers;
+using Match;
 
 namespace ServerGameObjectExtension
 {
@@ -17,12 +18,13 @@ namespace ServerGameObjectExtension
             factoryCreateGameObject = new Factory_ServerCommand_CreateGameObject();
         }
 
-        List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server)
+        List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer)
         {
             List<IMessageHandlerCommand> msgHandler = new List<IMessageHandlerCommand>();
             SpellGUIDGenerator spellGUIDGenerator = new SpellGUIDGenerator();
             msgHandler.Add(new MessageHandler_ClientRequest_CreateSpellWithDirection(server, spellGUIDGenerator));
             msgHandler.Add(new MessageHandler_ClientRequest_CreateSpellInStaticPosition(server, spellGUIDGenerator));
+            msgHandler.Add(new MessageHandler_ClientRequest_PlayerMovementUpdate(server, pingDeterminer));
             return msgHandler;
         }
 

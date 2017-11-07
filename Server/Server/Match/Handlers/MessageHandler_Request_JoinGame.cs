@@ -94,6 +94,7 @@ namespace Match
         /// </summary>
         private void StartGame()
         {
+            matchThread.pingDeterminer.CalculateMatchPing();
             List<Shared_PlayerInfo> playerInfoes = matchThread.GetConnectedClientsInfo();
             foreach (var client in matchThread.GetConnectedClients())
             {

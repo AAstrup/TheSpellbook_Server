@@ -1,4 +1,5 @@
-﻿using Server;
+﻿using Match;
+using Server;
 using System.Collections.Generic;
 
 namespace ServerGameObjectExtension
@@ -14,6 +15,6 @@ namespace ServerGameObjectExtension
         /// <summary>
         /// Get the messagehandlers provided by the extension
         /// </summary>
-        List<IMessageHandlerCommand> CreateMessageHandlers(ServerCore server);
+        List<IMessageHandlerCommand> CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer);
     }
 }
