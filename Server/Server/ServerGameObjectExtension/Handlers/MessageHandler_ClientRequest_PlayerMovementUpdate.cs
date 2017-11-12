@@ -23,6 +23,7 @@ namespace ServerGameObjectExtension
         {
             var data = (Message_ClientRequest_PlayerMovementUpdate)objData;
             double time = data.TimeStartedMoving + pingDeterminer.GetMatchPingInMiliSeconds();
+            var pos = MovementLibrary.Move(data.currentXPos, data.currentZPos, data.moveTargetXPos, data.moveTargetZPos, time-data.TimeStartedMoving, Shared_GameObject_PlayerInfo.GetMoveSpeed());
             var msg = new Message_ServerResponse_PlayerMovementUpdate()
             {
                 currentXPos = data.currentXPos,

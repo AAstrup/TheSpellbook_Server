@@ -43,12 +43,15 @@
   <ItemGroup>
     <Compile Include="Factory\Factory_ServerCommand_CreateGameObject.cs" />
     <Compile Include="Handlers\MessageHandler_ClientRequest_CreateSpellWithDirection.cs" />
+    <Compile Include="Handlers\Shared_GameObject_PlayerInfo.cs" />
     <Compile Include="IServerExtension.cs" />
     <Compile Include="Handlers\MessageHandler_ClientRequest_CreateSpellInStaticPosition.cs" />
     <Compile Include="Handlers\MessageHandler_ClientRequest_PlayerMovementUpdate.cs" />
+    <Compile Include="MovementLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerGameObjectExtensionWrapper.cs" />
     <Compile Include="SpellGUIDGenerator.cs" />
+    <Compile Include="VectorXZ.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
