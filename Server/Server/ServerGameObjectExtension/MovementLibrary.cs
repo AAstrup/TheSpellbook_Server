@@ -8,11 +8,14 @@ namespace ServerGameObjectExtension
         {
         }
 
-        internal static object Move(float currentXPos, float currentZPos, float moveTargetXPos, float moveTargetZPos, double time,float moveSpeed)
+        internal static VectorXZ Move(float currentXPos, float currentZPos, float moveTargetXPos, float moveTargetZPos, double time,float moveSpeed)
         {
             VectorXZ pos = new VectorXZ(moveTargetXPos-currentXPos,moveTargetZPos-currentZPos);
             pos.Normalise();
-            apply speed and return
+            pos.Multiply(moveSpeed * ((float)time)/1000);
+            pos.x += currentXPos;
+            pos.z += currentZPos;
+            return pos;
         }
     }
 }

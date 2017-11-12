@@ -4,8 +4,8 @@ namespace ServerGameObjectExtension
 {
     public struct VectorXZ
     {
-        private float x;
-        private float z;
+        public float x;
+        public float z;
 
         public VectorXZ(float x, float z)
         {
@@ -18,8 +18,16 @@ namespace ServerGameObjectExtension
             return (float)Math.Sqrt(Math.Pow(x, 2) + Math.Pow(z, 2));
         }
 
-        public void Normalise (VectorXZ vector, float amount){
+        public void Normalise (){
+            float magnitude = Magnitude();
+            x = x / magnitude;
+            z = z / magnitude;
+        }
 
-            }
+        public void Multiply(float amount)
+        {
+            x = x * amount;
+            z = z * amount;
+        }
     }
 }

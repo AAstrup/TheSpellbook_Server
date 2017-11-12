@@ -26,8 +26,8 @@ namespace ServerGameObjectExtension
             var pos = MovementLibrary.Move(data.currentXPos, data.currentZPos, data.moveTargetXPos, data.moveTargetZPos, time-data.TimeStartedMoving, Shared_GameObject_PlayerInfo.GetMoveSpeed());
             var msg = new Message_ServerResponse_PlayerMovementUpdate()
             {
-                currentXPos = data.currentXPos,
-                currentZPos = data.currentZPos,
+                currentXPos = pos.x,
+                currentZPos = pos.z,
                 GMJGUID = data.GMJGUID,
                 moveTargetXPos = data.moveTargetXPos,
                 moveTargetZPos = data.moveTargetZPos,
