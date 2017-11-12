@@ -13,6 +13,7 @@ namespace Match
     {
         List<IServerExtension> serverExtensions;
         private ILogger logger;
+        private int miliSecondPerTick;
         public int PlayerCountExpected;
         private Dictionary<int, Server_ServerClient> GUIDToPlayerClient;
         public List<int> remainingPlayerGUIDsToConnect;
@@ -47,6 +48,7 @@ namespace Match
             serverExtensions = MatchExtensionFactory.CreateExtensions(logger);
             this.port = port;
             this.logger = logger;
+            miliSecondPerTick = 1000 / ServerConfig.GetInt("MatchTickRate");
         }
 
         /// <summary>
@@ -59,12 +61,14 @@ namespace Match
             server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
             pingDeterminer = new PingDeterminer(server.clientManager, clock);
             matchGameHandler.Init(serverExtensions);
+            var time = clock.GetTime();
 
             while (!gameHasEnded)
             {
                 clock.PRINT();
                 updater.Update();
                 server.Update();
+                System.Threading.Thread.Sleep(miliSecondPerTick);
             }
 
             logger.Log("Match ended");
