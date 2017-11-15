@@ -15,6 +15,6 @@ namespace ServerGameObjectExtension
         /// <summary>
         /// Get the messagehandlers provided by the extension
         /// </summary>
-        List<IMessageHandlerCommand> CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer);
+        List<IMessageHandlerCommand> CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer, MatchGameEventContainer matchGameEventWrapper, Clock matchClock);
     }
 }

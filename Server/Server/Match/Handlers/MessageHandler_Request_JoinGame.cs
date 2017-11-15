@@ -6,6 +6,7 @@ namespace Match
 {
     public class MessageHandler_Request_JoinGame : IMessageHandlerCommand, IUpdatable
     {
+        private MatchGameEventContainer matchGameEventWrapper;
         private Server_MessageSender sender;
         private MatchThread matchThread;
         ILogger logger;
@@ -13,8 +14,9 @@ namespace Match
         float timeBetweenInitialPings = 1000f;
         public Dictionary<Server_ServerClient, float> lastPingTime;
 
-        public MessageHandler_Request_JoinGame(ILogger logger, Server_MessageSender sender,MatchThread matchThread, List<IServerExtension> serverExtensions)
+        public MessageHandler_Request_JoinGame(ILogger logger, Server_MessageSender sender,MatchThread matchThread, List<IServerExtension> serverExtensions, MatchGameEventContainer matchGameEventWrapper)
         {
+            this.matchGameEventWrapper = matchGameEventWrapper;
             this.sender = sender;
             this.matchThread = matchThread;
             matchThread.updater.Add(this);
@@ -94,6 +96,7 @@ namespace Match
         /// </summary>
         private void StartGame()
         {
+            matchGameEventWrapper.GameStarted_Invoke(matchThread.GetServer());
             matchThread.pingDeterminer.CalculateMatchPing();
             List<Shared_PlayerInfo> playerInfoes = matchThread.GetConnectedClientsInfo();
             foreach (var client in matchThread.GetConnectedClients())

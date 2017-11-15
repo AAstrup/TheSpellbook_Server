@@ -18,13 +18,15 @@ namespace ServerGameObjectExtension
             factoryCreateGameObject = new Factory_ServerCommand_CreateGameObject();
         }
 
-        List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer)
+        List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer, MatchGameEventContainer matchGameEventWrapper,Clock matchClock)
         {
             List<IMessageHandlerCommand> msgHandler = new List<IMessageHandlerCommand>();
             SpellGUIDGenerator spellGUIDGenerator = new SpellGUIDGenerator();
             msgHandler.Add(new MessageHandler_ClientRequest_CreateSpellWithDirection(server, spellGUIDGenerator));
             msgHandler.Add(new MessageHandler_ClientRequest_CreateSpellInStaticPosition(server, spellGUIDGenerator));
             msgHandler.Add(new MessageHandler_ClientRequest_PlayerMovementUpdate(server, pingDeterminer));
+            msgHandler.Add(new MessageHandler_ClientRequest_RoundEnded(server, matchGameEventWrapper, matchClock,pingDeterminer));
+
             return msgHandler;
         }
 

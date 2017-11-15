@@ -1,10 +1,13 @@
 ﻿using System;
 
-namespace ClientServerSharedGameObjectMessages
+namespace ServerGameObjectExtension
 {
     [Serializable]
     public class Message_ServerCommand_RoundReset
     {
-        public int MapLayoutNr;
+        /// <summary>
+        /// Time for which the next round starts
+        /// </summary>
+        public double timeRoundStart;
     }
 }

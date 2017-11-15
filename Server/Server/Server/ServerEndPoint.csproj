@@ -51,6 +51,7 @@
     <Compile Include="Config_Shared\ServerConfig.cs" />
     <Compile Include="MessageHandler\IMessageHandlerCommand.cs" />
     <Compile Include="MessageHandler\IMessageHandler.cs" />
+    <Compile Include="MessageHandler\MatchGameEventContainer.cs" />
     <Compile Include="PingDeterminer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\ServerConnectionInfo.cs" />

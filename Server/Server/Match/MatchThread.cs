@@ -60,7 +60,7 @@ namespace Match
             MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
             server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
             pingDeterminer = new PingDeterminer(server.clientManager, clock);
-            matchGameHandler.Init(serverExtensions);
+            matchGameHandler.Init(serverExtensions, clock);
             var time = clock.GetTime();
 
             while (!gameHasEnded)

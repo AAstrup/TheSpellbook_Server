@@ -18,5 +18,5 @@ namespace ClientServerSharedGameObjectMessages
         /// </summary>
         public double TimeStartedCasting;
     }
-    public enum SpellType { Fireball, Explode }
+    public enum SpellType { Fireball, Explode, Volley, Teleport, Bouncer,RichoChe }
 }
