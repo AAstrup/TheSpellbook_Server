@@ -58,7 +58,7 @@ namespace Match
         public void ThreadStart()
         {
             MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
-            server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port));
+            server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port),logger);
             pingDeterminer = new PingDeterminer(server.clientManager, clock);
             matchGameHandler.Init(serverExtensions, clock);
             var time = clock.GetTime();

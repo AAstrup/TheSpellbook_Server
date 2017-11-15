@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 
 /// <summary>
@@ -7,10 +8,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 /// </summary>
 public class Server_MessageSender
 {
+    private ILogger logger;
     private Server_ClientManager clientManager;
 
-    public Server_MessageSender(Server_ClientManager clientManager)
+    public Server_MessageSender(Server_ClientManager clientManager,ILogger logger)
     {
+        this.logger = logger;
         this.clientManager = clientManager;
     }
 
@@ -22,8 +25,15 @@ public class Server_MessageSender
     /// <param name="server_ServerClient">The recieving client</param>
     public void Send(object serializableObject, Server_ServerClient server_ServerClient)
     {
-        BinaryFormatter form = new BinaryFormatter();
-        form.Serialize(server_ServerClient.tcp.GetStream(), serializableObject);
+        try
+        {
+            BinaryFormatter form = new BinaryFormatter();
+            form.Serialize(server_ServerClient.tcp.GetStream(), serializableObject);
+        }
+        catch(SocketException exception)
+        {
+            logger.Log("Exception on msg send: " + exception.ToString());
+        }
     }
 
     /// <summary>

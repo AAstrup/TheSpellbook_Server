@@ -13,7 +13,7 @@ public class ServerCore
     public Server_MessageSender messageSender;
     private ServerConnectionInfo connectionInfo;
 
-    public ServerCore(IMessageHandler messageHandler,ServerConnectionInfo connectionInfo)
+    public ServerCore(IMessageHandler messageHandler,ServerConnectionInfo connectionInfo,ILogger logger)
     {
         gameInfo = new Server_GameInfo();
         clientManager = new Server_ClientManager(this);
@@ -21,7 +21,7 @@ public class ServerCore
         this.messageHandler = messageHandler;
         connection = new Server_Connection(clientManager, connectionInfo);
         messageReciever = new Server_MessageReciever(connection,messageHandler);
-        messageSender = new Server_MessageSender(clientManager);
+        messageSender = new Server_MessageSender(clientManager, logger);
     }
 
     /// <summary>
