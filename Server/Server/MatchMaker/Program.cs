@@ -1,8 +1,10 @@
-﻿using Match;
+﻿using DatabaseConnector;
+using Match;
 using Server;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace MatchMaker
 {
@@ -18,8 +20,10 @@ namespace MatchMaker
             int tickrate = 33;
             int secondToWait = 1000 / tickrate;
             Console.WriteLine("Server started!");
-            Console.WriteLine("Press Q to stop");
-            Console.WriteLine("Assemblies" + AppDomain.CurrentDomain.GetAssemblies());
+
+            var DBThread = new DBThread(logger);
+            Thread matchThread = new Thread(new ThreadStart(DBThread.ThreadStart));
+            matchThread.Start();
 
             while (true)
             {

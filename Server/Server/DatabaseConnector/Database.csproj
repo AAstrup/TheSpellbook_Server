@@ -108,13 +108,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBConnector.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="DBEndPoint.cs" />
+    <Compile Include="DBMessageHandler.cs" />
+    <Compile Include="DBThread.cs" />
+    <Compile Include="Login\DBLogin.cs" />
+    <Compile Include="Login\DBPasswordHash.cs" />
+    <Compile Include="MessageHandler\MessageHandler_ClientRequest_Login.cs" />
+    <Compile Include="MessageHandler\MessageHandler_ClientRequest_Register.cs" />
+    <Compile Include="SQLTestScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Messages\ClientServerShared.csproj">
+      <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
+      <Name>ClientServerShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerExtensionTools\ServerExtensionTools.csproj">
+      <Project>{83a5dfa3-e765-4b8a-91e6-84fecd41a489}</Project>
+      <Name>ServerExtensionTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Server\ServerEndPoint.csproj">
+      <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
+      <Name>ServerEndPoint</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

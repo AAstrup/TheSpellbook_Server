@@ -54,6 +54,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\DatabaseConnector\Database.csproj">
+      <Project>{e343a72b-3c72-4439-8df3-bdf6a23ad619}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Match\ServerMatchLogic.csproj">
       <Project>{d9ca2d4d-1048-4f0e-b21a-139700a8352e}</Project>
       <Name>ServerMatchLogic</Name>
@@ -61,6 +65,10 @@
     <ProjectReference Include="..\Messages\ClientServerShared.csproj">
       <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
       <Name>ClientServerShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerExtensionTools\ServerExtensionTools.csproj">
+      <Project>{83a5dfa3-e765-4b8a-91e6-84fecd41a489}</Project>
+      <Name>ServerExtensionTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\Server\ServerEndPoint.csproj">
       <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>

@@ -37,7 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\IUpdatable.cs" />
-    <Compile Include="Handlers\MessageCommandHandlerServer.cs" />
     <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
     <Compile Include="Factories\MatchExtensionFactory.cs" />
     <Compile Include="MessageAdapters\MatchGameMessageHandler.cs" />
@@ -54,6 +53,10 @@
     <ProjectReference Include="..\Messages\ClientServerShared.csproj">
       <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
       <Name>ClientServerShared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerExtensionTools\ServerExtensionTools.csproj">
+      <Project>{83a5dfa3-e765-4b8a-91e6-84fecd41a489}</Project>
+      <Name>ServerExtensionTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServerGameObjectExtension\ServerGameObjectExtension.csproj">
       <Project>{903c35f9-8c3b-49ce-a8b7-2f27090f8296}</Project>

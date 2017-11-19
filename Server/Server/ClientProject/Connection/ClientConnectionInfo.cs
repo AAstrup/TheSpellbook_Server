@@ -16,6 +16,13 @@ public class ClientConnectionInfo
         this.Ip = Ip;
     }
 
+    public static ClientConnectionInfo DBConnectionInfo(IClientConfig config)
+    {
+        return new ClientConnectionInfo(
+            config.GetInt("PortOfDB"),
+            config.GetString("IpOfDB"));
+    }
+
     public static ClientConnectionInfo MatchMakerConnectionInfo(IClientConfig config)
     {
         return new ClientConnectionInfo(

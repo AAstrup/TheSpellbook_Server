@@ -25,6 +25,10 @@ namespace Server
         {
             return new ServerConnectionInfo(ServerConfig.GetInt("PortOfMatchMaker"), ServerConfig.IpAddressOfMatchMaker);
         }
+        public static ServerConnectionInfo DBConnectionInfo()
+        {
+            return new ServerConnectionInfo(ServerConfig.GetInt("PortOfDB"), ServerConfig.IpAddressOfMatchMaker);
+        }
         public static ServerConnectionInfo LocalConnectionInfo()
         {
             return new ServerConnectionInfo(ServerConfig.GetInt("PortOfMatchMaker"), ServerConfig.IpAddressLocal);
