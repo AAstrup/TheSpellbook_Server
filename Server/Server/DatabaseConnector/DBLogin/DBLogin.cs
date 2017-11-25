@@ -8,30 +8,24 @@ namespace DatabaseConnector
     {
         private static string tableName = "LoginTable";
 
-        internal static void GetPlayer(object name, object password)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Search for a player
         /// Returns null if no player is found
         /// </summary>
         /// <param name="username">Username of the player</param>
-        /// <param name="password">Password of the player will be hashed later</param>
+        /// <param name="hashedPassword">Hashed password of the player </param>
         /// <returns>The player profile, null if none were found</returns>
-        public static DBPlayerProfile GetPlayer(string username, string password)
+        public static DBProfile_Login GetPlayer(string username, string hashedPassword)
         {
-            string hash = DBPasswordHash.GetHashString(password);
             string sql = String.Format("SELECT * FROM [dbo].[{0}] WHERE Username = '{1}' and Password = '{2}'"
                 , tableName
                 , username
-                , hash);
+                , hashedPassword);
             Dictionary<string, object> results = new Dictionary<string, object>();
             if (DBEndPoint.GetSingleRowSqlSearch(sql, results))
             {
-                DBPlayerProfile profile;
-                profile = new DBPlayerProfile((string)results["Username"]);
+                DBProfile_Login profile;
+                profile = new DBProfile_Login((int)results["Id"], (string)results["Username"]);
                 return profile;
             }
             return null;
@@ -64,10 +58,10 @@ namespace DatabaseConnector
         /// <param name="username">Username of the player</param>
         /// <param name="password">Password of the player</param>
         /// <returns>The player or null depending on how it's result</returns>
-        public static KeyValuePair<DBPlayerProfile,string> RegisterPlayer(string username, string password)
+        public static KeyValuePair<DBProfile_Login,string> RegisterPlayer(string username, string password)
         {
+            string hash = DBPasswordHash.GetHashString(password);
             if (!PlayerExist(username)) { 
-                string hash = DBPasswordHash.GetHashString(password);
                 string sql = String.Format("INSERT INTO [dbo].[{0}] (Username,Password) VALUES('{1}', '{2}'); "
                     , tableName
                     , username
@@ -76,17 +70,29 @@ namespace DatabaseConnector
                 var sqlResult = DBEndPoint.ExecuteSQL(sql);
                 if (sqlResult.Key)
                 {
-                    return new KeyValuePair<DBPlayerProfile, string>(GetPlayer(username, password),"Succesfully generated");
+                    var player = GetPlayer(username, hash);
+                    RegisterPlayerInOtherTables(player.id);
+                    return new KeyValuePair<DBProfile_Login, string>(player,"Succesfully generated");
                 }
                 else
                 {
-                    return new KeyValuePair<DBPlayerProfile, string>(null, "Internal issue");
+                    return new KeyValuePair<DBProfile_Login, string>(null, "Internal issue");
                 }
             }
             else
             {
-                return new KeyValuePair<DBPlayerProfile, string>(null,"A player with that name already exist");
+                return new KeyValuePair<DBProfile_Login, string>(null,"A player with that name already exist");
             }
+        }
+
+        /// <summary>
+        /// Register player in all tables except LoginTable from which the id were incremented
+        /// </summary>
+        /// <param name="id">ID of the player</param>
+        private static void RegisterPlayerInOtherTables(int id)
+        {
+            DBStats.RegisterNewPlayer(id);
+            DBOwnedSpells.RegisterNewPlayer(id);
         }
     }
 }

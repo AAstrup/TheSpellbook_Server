@@ -59,6 +59,10 @@
       <Project>{b4fabb13-ef8f-43f6-be5f-c143b768d531}</Project>
       <Name>ClientServerSharedGameObjectMessages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DatabaseConnector\Database.csproj">
+      <Project>{e343a72b-3c72-4439-8df3-bdf6a23ad619}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Messages\ClientServerShared.csproj">
       <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
       <Name>ClientServerShared</Name>

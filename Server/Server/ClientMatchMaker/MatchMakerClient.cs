@@ -31,7 +31,7 @@ public class MatchMakerClient : IUnityComponentResetable, IConnectionResultHandl
     /// </summary>
     private void StartOnlineClient(string inputName)
     {
-        persistentData.PlayerInfo = new Shared_PlayerInfo() { name = inputName };
+        persistentData.PlayerInfo = new Shared_PlayerInfo() { username = "NOT CORRECT" };
         messageHandler = new MMMessageHandler(this,updateController,logger,persistentData);
         client = new Client(this, ClientConnectionInfo.MatchMakerConnectionInfo(clientConfig), messageHandler,persistentData,logger,this, clientConfig);
     }

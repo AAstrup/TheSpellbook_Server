@@ -10,9 +10,9 @@
 public class Shared_PlayerInfo
 {
     /// <summary>
-    /// Name of the player, decided by the player
+    /// User username
     /// </summary>
-    public string name;
+    public string username;
     /// <summary>
     /// Skill raiting of the play
     /// </summary>

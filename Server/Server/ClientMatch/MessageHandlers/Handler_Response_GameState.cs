@@ -21,7 +21,7 @@ internal class Handler_Response_GameState : IMessageHandlerCommandClient
         var data = (Message_Response_GameAllConnected)objdata;
         foreach (var item in data.AllPlayers)
         {
-            logger.Log("Player " + item.name + " is in this game");
+            logger.Log("Player " + item.username + " is in this game");
         }
         matchEventHandler.JoinedGame(data);
     }

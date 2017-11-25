@@ -10,6 +10,9 @@ public class Server_ServerClient
 {
     public Shared_PlayerInfo info;
     public TcpClient tcp;
+    public int DBPlayerId;
+    public int kills;
+    public int deaths;
 
     double? cachedPing;
     List<double> pingsRecorded;

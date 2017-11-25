@@ -33,6 +33,8 @@ namespace DatabaseConnector
         {
             commandHandler.Add(new MessageHandler_ClientRequest_Login(server));
             commandHandler.Add(new MessageHandler_ClientRequest_Register(server));
+            commandHandler.Add(new MessageHandler_ClientRequest_OwnedSpells(server));
+            commandHandler.Add(new MessageHandler_ClientRequest_Stats(server));
         }
     }
 }

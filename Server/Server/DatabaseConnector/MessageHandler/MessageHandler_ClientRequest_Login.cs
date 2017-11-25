@@ -19,7 +19,8 @@ namespace DatabaseConnector
         public void Handle(object objData, Server_ServerClient client)
         {
             var data = (Message_ClientRequest_Login)objData;
-            var player = DBLogin.GetPlayer(data.name,data.password);
+            var passwordHashed = DBPasswordHash.GetHashString(data.password);
+            var player = DBLogin.GetPlayer(data.name, passwordHashed);
             var msg = new Message_ServerResponse_Login(player);
             server.messageSender.Send(msg, client);
         }

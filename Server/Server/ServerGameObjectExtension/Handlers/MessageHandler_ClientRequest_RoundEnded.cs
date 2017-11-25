@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Server;
 using ClientServerSharedGameObjectMessages;
 using Match;
+using DatabaseConnector;
 
 namespace ServerGameObjectExtension
 {
@@ -86,10 +87,21 @@ namespace ServerGameObjectExtension
 
             foreach (KeyValuePair<Server_ServerClient,PlayerScore> player in playerToScore)
             {
-                if(player.Value.guid == scores[scores.Count - 1].guid)
-                    SendResultMessage(player.Key, player.Value,true);
+                bool won = player.Value.guid == scores[scores.Count - 1].guid;
+                SendResultMessage(player.Key, player.Value,won);
+            }
+            UpdatePlayerAchievementsDB();
+        }
+
+        private void UpdatePlayerAchievementsDB()
+        {
+            foreach (KeyValuePair<Server_ServerClient, PlayerScore> player in playerToScore)
+            {
+                bool won = player.Value.guid == scores[scores.Count - 1].guid;
+                if (won)
+                    DBStats.IncrementWins(player.Key.DBPlayerId, player.Key.kills, player.Key.deaths);
                 else
-                    SendResultMessage(player.Key, player.Value,false);
+                    DBStats.IncrementLoss(player.Key.DBPlayerId, player.Key.kills, player.Key.deaths);
             }
         }
 

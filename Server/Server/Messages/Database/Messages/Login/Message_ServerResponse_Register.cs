@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public class Message_ServerResponse_Register
 {
     public bool succeded;
-    public DBPlayerProfile profile;
+    public DBProfile_Login profile;
     public string message;
 
-    public Message_ServerResponse_Register(KeyValuePair<DBPlayerProfile, string> result)
+    public Message_ServerResponse_Register(KeyValuePair<DBProfile_Login, string> result)
     {
         succeded = result.Key != null;
         profile = result.Key;

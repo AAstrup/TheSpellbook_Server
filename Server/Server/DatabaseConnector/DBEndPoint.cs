@@ -22,7 +22,7 @@ namespace DatabaseConnector
         }
 
         /// <summary>
-        /// Executes a sql string
+        /// Executes sql represented as strings
         /// </summary>
         /// <param name="sql"></param>
         /// <returns>Returns whether or not it succeded, and possible error messages</returns>
@@ -38,7 +38,7 @@ namespace DatabaseConnector
                 command.ExecuteNonQuery();
                 command.Dispose();
                 connection.Close();
-                return new KeyValuePair<bool, string>(true,"");
+                return new KeyValuePair<bool, string>(true,"Command succesful");
             }
             catch (Exception ex)
             {

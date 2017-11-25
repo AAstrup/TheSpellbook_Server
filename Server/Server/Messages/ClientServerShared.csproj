@@ -42,11 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\ILogger.cs" />
-    <Compile Include="Database\DBPlayerProfile.cs" />
-    <Compile Include="Database\Messages\Message_ClientRequest_Login.cs" />
-    <Compile Include="Database\Messages\Message_ClientRequest_Register.cs" />
-    <Compile Include="Database\Messages\Message_ServerResponse_Login.cs" />
-    <Compile Include="Database\Messages\Message_ServerResponse_Register.cs" />
+    <Compile Include="Database\Messages\OwnedSpells\Message_ClientRequest_DBOwnedSpells.cs" />
+    <Compile Include="Database\Messages\OwnedSpells\Message_ServerResponse_DBOwnedSpells.cs" />
+    <Compile Include="Database\Messages\ProfileComponents\DBProfile_OwnedSpells.cs" />
+    <Compile Include="Database\Messages\ProfileComponents\DBProfile_Stats.cs" />
+    <Compile Include="Database\Messages\ProfileComponents\DBProfile_Login.cs" />
+    <Compile Include="Database\Messages\Login\Message_ClientRequest_Login.cs" />
+    <Compile Include="Database\Messages\Login\Message_ClientRequest_Register.cs" />
+    <Compile Include="Database\Messages\Login\Message_ServerResponse_Login.cs" />
+    <Compile Include="Database\Messages\Login\Message_ServerResponse_Register.cs" />
+    <Compile Include="Database\Messages\Stats\Message_ClientRequest_DBStats.cs" />
+    <Compile Include="Database\Messages\Stats\Message_ServerResponse_DBStats.cs" />
     <Compile Include="Message_Requests\MatchMaker\Message_ServerRequest_ReadyCheck.cs" />
     <Compile Include="Message_Requests\Match\Message_Request_JoinGame.cs" />
     <Compile Include="Message_Requests\MatchMaker\Message_Request_JoinQueue.cs" />

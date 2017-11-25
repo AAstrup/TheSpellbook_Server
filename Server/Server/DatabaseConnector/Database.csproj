@@ -111,10 +111,14 @@
     <Compile Include="DBEndPoint.cs" />
     <Compile Include="DBMessageHandler.cs" />
     <Compile Include="DBThread.cs" />
-    <Compile Include="Login\DBLogin.cs" />
-    <Compile Include="Login\DBPasswordHash.cs" />
+    <Compile Include="DBLogin\DBLogin.cs" />
+    <Compile Include="DBLogin\DBPasswordHash.cs" />
+    <Compile Include="DBOwnedSpells\DBOwnedSpells.cs" />
+    <Compile Include="DBStats\DBStats.cs" />
     <Compile Include="MessageHandler\MessageHandler_ClientRequest_Login.cs" />
+    <Compile Include="MessageHandler\MessageHandler_ClientRequest_OwnedSpells.cs" />
     <Compile Include="MessageHandler\MessageHandler_ClientRequest_Register.cs" />
+    <Compile Include="MessageHandler\MessageHandler_ClientRequest_Stats.cs" />
     <Compile Include="SQLTestScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
