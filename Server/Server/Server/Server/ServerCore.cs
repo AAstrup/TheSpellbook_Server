@@ -12,8 +12,9 @@ public class ServerCore
     public Server_MessageReciever messageReciever;
     public Server_MessageSender messageSender;
     private ServerConnectionInfo connectionInfo;
+    public IServerEventHandler eventHandler;
 
-    public ServerCore(IMessageHandler messageHandler,ServerConnectionInfo connectionInfo,ILogger logger)
+    public ServerCore(IMessageHandler messageHandler,ServerConnectionInfo connectionInfo,ILogger logger, IServerEventHandler eventHandler = null)
     {
         gameInfo = new Server_GameInfo();
         clientManager = new Server_ClientManager(this);
@@ -22,6 +23,7 @@ public class ServerCore
         connection = new Server_Connection(clientManager, connectionInfo);
         messageReciever = new Server_MessageReciever(connection,messageHandler);
         messageSender = new Server_MessageSender(clientManager, logger);
+        this.eventHandler = eventHandler == null ? eventHandler = new ServerCoreShellHandler() : this.eventHandler = eventHandler;
     }
 
     /// <summary>

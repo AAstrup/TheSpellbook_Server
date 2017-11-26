@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ClientRequest\Message_ClientRequest_RoundEnded.cs" />
     <Compile Include="Common\PlayerScore.cs" />
+    <Compile Include="ServerCommand\Message_ServerCommand_PlayerLeft.cs" />
     <Compile Include="ServerCommand\Message_ServerCommand_RoundReset.cs" />
     <Compile Include="ServerResponse\Message_ServerResponse_PlayerMovementUpdate.cs" />
     <Compile Include="ClientRequest\Message_ClientRequest_CreateSpellInStaticPosition.cs" />

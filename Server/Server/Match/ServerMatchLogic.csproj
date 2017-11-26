@@ -39,6 +39,7 @@
     <Compile Include="Handlers\IUpdatable.cs" />
     <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
     <Compile Include="Factories\MatchExtensionFactory.cs" />
+    <Compile Include="MatchServerCoreEventHandler.cs" />
     <Compile Include="MessageAdapters\MatchGameMessageHandler.cs" />
     <Compile Include="MatchThread.cs" />
     <Compile Include="MessageAdapters\MessageHandler_ServerRoundTrip_Ping.cs" />

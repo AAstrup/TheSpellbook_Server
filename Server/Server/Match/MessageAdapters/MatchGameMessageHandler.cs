@@ -57,10 +57,12 @@ namespace Match
         }
 
         /// <summary>
-        /// Setup handlers that requires the ServerCore to be setup
+        /// Setup extensions
         /// </summary>
-        /// <param name="sender"></param>
-        internal void Init(List<IServerExtension> serverExtensions,Clock matchClock)
+        /// <param name="serverExtensions">Extensions</param>
+        /// <param name="matchClock">Clock of the match</param>
+        /// <param name="serverCoreEventHandler">Eventhandler of the ServerCore</param>
+        internal void Init(List<IServerExtension> serverExtensions,Clock matchClock, MatchServerCoreEventHandler serverCoreEventHandler)
         {
             commandHandler.Add( new MessageHandler_Request_JoinGame(logger,matchThread.GetServer().messageSender,matchThread, serverExtensions, matchGameEventWrapper));
             commandHandler.Add(new MessageHandler_ServerRoundTrip_Ping(logger, matchThread.GetServer().messageSender, matchThread, serverExtensions));
@@ -70,6 +72,7 @@ namespace Match
                 {
                     commandHandler.Add(msgHandler);
                 }
+                extension.SetupSubscribers(matchThread.GetServer(), serverCoreEventHandler);
             }
         }
     }

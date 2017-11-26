@@ -10,9 +10,8 @@ namespace Server
     public class ServerConfig
     {
         //Free port https://www.speedguide.net/port.php?port=61497
-        //public static int PortOfMatchMaker = 61497;
         public static string LocalIp = "127.0.0.1";
-        public static int FirstPortOfMatches = 61498;//Will increment as more matches are created
+        public static int FirstPortOfMatches = 61501;//Will increment as more matches are created
         public static IPAddress IpAddressOfMatchMaker = IPAddress.Any;
         public static IPAddress IpAddressLocal = IPAddress.Any;
 
@@ -31,6 +30,5 @@ namespace Server
                 throw new Exception("Appsetting for key '" + key + "' is missing, none were found or it was empty");
             return val.Equals("true");
         }
-        //public static int PlayerCountInAMatch = 2;
     }
 }

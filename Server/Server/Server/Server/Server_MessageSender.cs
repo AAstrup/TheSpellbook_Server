@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -8,11 +9,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 /// </summary>
 public class Server_MessageSender
 {
+    private BinaryFormatter form;
     private ILogger logger;
     private Server_ClientManager clientManager;
 
     public Server_MessageSender(Server_ClientManager clientManager,ILogger logger)
     {
+        form = new BinaryFormatter();
         this.logger = logger;
         this.clientManager = clientManager;
     }
@@ -27,12 +30,18 @@ public class Server_MessageSender
     {
         try
         {
-            BinaryFormatter form = new BinaryFormatter();
             form.Serialize(server_ServerClient.tcp.GetStream(), serializableObject);
         }
-        catch(SocketException exception)
+        catch (Exception e)
         {
-            logger.Log("Exception on msg send: " + exception.ToString());
+            if (e is IOException)
+            {
+                clientManager.ClientLeft(server_ServerClient);
+            }
+            else
+            {
+                logger.Log("Exception on msg send: " + e.ToString());
+            }
         }
     }
 
@@ -58,9 +67,9 @@ public class Server_MessageSender
     /// <param name="clientList">List of clients</param>
     public void SendToAll(object msg, List<Server_ServerClient> clientList)
     {
-        foreach (var client in clientList)
+        for (int i = 0; i < clientList.Count; i++)
         {
-            Send(msg, client);
+            Send(msg, clientList[i]);
         }
     }
 }

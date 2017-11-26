@@ -54,8 +54,11 @@
     <Compile Include="MessageHandler\MatchGameEventContainer.cs" />
     <Compile Include="PingDeterminer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\IServerEventHandler.cs" />
+    <Compile Include="Server\ServerEventHandlerDelegates.cs" />
     <Compile Include="Server\ServerConnectionInfo.cs" />
     <Compile Include="Server\ServerCore.cs" />
+    <Compile Include="Server\ServerCoreShellHandler.cs" />
     <Compile Include="Server\Server_ClientManager.cs" />
     <Compile Include="Server\Server_Connection.cs" />
     <Compile Include="Server\Server_GameInfo.cs" />

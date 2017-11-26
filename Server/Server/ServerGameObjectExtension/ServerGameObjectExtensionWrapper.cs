@@ -46,5 +46,10 @@ namespace ServerGameObjectExtension
         {
             return factoryCreateGameObject.Create_Message_ServerCommand_CreateGameObject(client.info.GUID);
         }
+
+        public void SetupSubscribers(ServerCore server, IServerEventHandler serverCoreEventHandler)
+        {
+            serverCoreEventHandler.SubScribeClientLeft(new ServerEventHandlerDelegates.ClientLeftEvent (ServerGameObjectExtensionWrapperEvents.GetClientLeftEvent));
+        }
     }
 }

@@ -44,6 +44,18 @@ public class Server_ClientManager  {
     }
 
     /// <summary>
+    /// When a client leaves this is called
+    /// This includes when a client is not reachable
+    /// </summary>
+    /// <param name="server_ServerClient"></param>
+    internal void ClientLeft(Server_ServerClient server_ServerClient)
+    {
+        clients.Remove(server_ServerClient);
+        disconnects.Add(server_ServerClient);
+        server.eventHandler.ClientLeft(server_ServerClient,server);
+    }
+
+    /// <summary>
     /// Update a client with player information
     /// </summary>
     /// <param name="playerInfo">New information</param>

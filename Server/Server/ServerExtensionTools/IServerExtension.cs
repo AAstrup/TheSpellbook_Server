@@ -14,7 +14,15 @@ namespace ServerGameObjectExtension
 
         /// <summary>
         /// Get the messagehandlers provided by the extension
+        /// Get by returning the messagehandler
         /// </summary>
         List<IMessageHandlerCommand> CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer, MatchGameEventContainer matchGameEventWrapper, Clock matchClock);
+
+        /// <summary>
+        /// Setup subscribers to the eventhandler
+        /// </summary>
+        /// <param name="server">The server</param>
+        /// <param name="serverCoreEventHandler">Eventhandler of the server</param>
+        void SetupSubscribers(ServerCore server, IServerEventHandler serverCoreEventHandler);
     }
 }
