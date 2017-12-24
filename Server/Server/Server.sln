@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerExtensionTools", "Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientDBLogic", "ClientDB\ClientDBLogic.csproj", "{636ECA2B-6719-4CB4-A95C-83EB41699D2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misc", "Misc\Misc.csproj", "{49EB5C20-CAF0-42A0-8E60-CC104999F130}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{636ECA2B-6719-4CB4-A95C-83EB41699D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{636ECA2B-6719-4CB4-A95C-83EB41699D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{636ECA2B-6719-4CB4-A95C-83EB41699D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49EB5C20-CAF0-42A0-8E60-CC104999F130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49EB5C20-CAF0-42A0-8E60-CC104999F130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49EB5C20-CAF0-42A0-8E60-CC104999F130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49EB5C20-CAF0-42A0-8E60-CC104999F130}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
