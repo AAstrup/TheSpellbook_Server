@@ -10,6 +10,7 @@ namespace ClientServerSharedGameObjectMessages
         public float spellZPos;
         public float playerXPos;
         public float playerZPos;
+        public int rank;
         public int ownerGUID;
         /// <summary>
         /// Time of the clock on which the spell were requested to be casted
