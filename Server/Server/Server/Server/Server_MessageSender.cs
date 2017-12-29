@@ -34,13 +34,14 @@ public class Server_MessageSender
         }
         catch (Exception e)
         {
-            if (e is IOException)
+            if (e is IOException || e is InvalidOperationException)
             {
                 clientManager.ClientLeft(server_ServerClient);
             }
             else
             {
-                logger.Log("Exception on msg send: " + e.ToString());
+                clientManager.ClientLeft(server_ServerClient);
+                logger.Log("Exception on msg send is caught as general exception! (" + e.ToString() + ")");
             }
         }
     }
