@@ -16,6 +16,8 @@ namespace ServerGameObjectExtension
         private ServerCore server;
         int round;
         int maxRounds;
+        private double timeBetweenRounds = 20000.0;
+
         public MessageHandler_ClientRequest_RoundEnded(ServerCore server, MatchGameEventContainer matchGameEventWrapper,Clock matchClock, PingDeterminer pingDeterminer)
         {
             this.pingDeterminer = pingDeterminer;
@@ -69,16 +71,16 @@ namespace ServerGameObjectExtension
 
             server.messageSender.SendToAll(msg, server.clientManager.GetClients());
 
-            Message_ServerCommand_RoundReset resetMsg = new Message_ServerCommand_RoundReset()
+            Message_ServerCommand_RoundEnd resetMsg = new Message_ServerCommand_RoundEnd()
             {
-                timeRoundStart = GenerateTimeForNextMatch()
+                timeNextRoundStart = GenerateTimeForNextMatch()
             };
             server.messageSender.SendToAll(resetMsg, server.clientManager.GetClients());
         }
 
         private double GenerateTimeForNextMatch()
         {
-            return matchClock.GetTime() + pingDeterminer.GetMatchPingInMiliSeconds() * 2;
+            return matchClock.GetTime() + pingDeterminer.GetMatchPingInMiliSeconds() * 2 + timeBetweenRounds;
         }
 
         private void GameOver()

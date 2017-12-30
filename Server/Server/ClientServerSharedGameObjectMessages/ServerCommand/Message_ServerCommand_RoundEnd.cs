@@ -3,11 +3,11 @@
 namespace ServerGameObjectExtension
 {
     [Serializable]
-    public class Message_ServerCommand_RoundReset
+    public class Message_ServerCommand_RoundEnd
     {
         /// <summary>
         /// Time for which the next round starts
         /// </summary>
-        public double timeRoundStart;
+        public double timeNextRoundStart;
     }
 }

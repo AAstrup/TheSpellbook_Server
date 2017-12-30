@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factory\Factory_ServerCommand_CreateGameObject.cs" />
+    <Compile Include="Factory_ServerCommand_StartGame.cs" />
     <Compile Include="Handlers\MessageHandler_ClientRequest_CreateSpellWithDirection.cs" />
     <Compile Include="Handlers\MessageHandler_ClientRequest_RoundEnded.cs" />
     <Compile Include="Handlers\Shared_GameObject_PlayerInfo.cs" />

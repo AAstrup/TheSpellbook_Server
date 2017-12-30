@@ -7,10 +7,11 @@ namespace ServerGameObjectExtension
     public interface IServerExtension
     {
         /// <summary>
-        /// Get messages requried to setup a client
+        /// Get messages required to setup a client
         /// </summary>
-        /// <param name="client"></param>
-        List<object> GetMessagesForClientSetup(Server_ServerClient client);
+        /// <param name="client">Client being generated message for</param>
+        /// <param name="clock">Clock of server</param>
+        List<object> GetMessagesForClientSetup(Server_ServerClient client, Clock clock);
 
         /// <summary>
         /// Get the messagehandlers provided by the extension

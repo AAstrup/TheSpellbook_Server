@@ -106,7 +106,7 @@ namespace Match
                 sender.Send(gameData, client.Value);
                 foreach (var extension in serverExtensions)
                 {
-                    var msgList = extension.GetMessagesForClientSetup(client.Value);
+                    var msgList = extension.GetMessagesForClientSetup(client.Value, matchThread.clock);
                     foreach (var msg in msgList)
                     {
                         if (msg != null)

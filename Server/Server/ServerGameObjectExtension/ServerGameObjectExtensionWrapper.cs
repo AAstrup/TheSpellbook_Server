@@ -12,10 +12,12 @@ namespace ServerGameObjectExtension
     public class ServerGameObjectExtensionWrapper : IServerExtension
     {
         private Factory_ServerCommand_CreateGameObject factoryCreateGameObject;
+        private Factory_ServerCommand_StartGame factoryStartGame;
 
         public ServerGameObjectExtensionWrapper()
         { 
             factoryCreateGameObject = new Factory_ServerCommand_CreateGameObject();
+            factoryStartGame = new Factory_ServerCommand_StartGame();
         }
 
         List<IMessageHandlerCommand> IServerExtension.CreateMessageHandlers(ServerCore server,PingDeterminer pingDeterminer, MatchGameEventContainer matchGameEventWrapper,Clock matchClock)
@@ -30,11 +32,22 @@ namespace ServerGameObjectExtension
             return msgHandler;
         }
 
-        public List<object> GetMessagesForClientSetup(Server_ServerClient client)
+        public List<object> GetMessagesForClientSetup(Server_ServerClient client, Clock clock)
         {
-            List<object> objs = new List<object>();
-            objs.Add(CreateGameObject(client));
-            return objs;
+            List<object> setupMessages = new List<object>();
+            setupMessages.Add(CreateGameObject(client));
+            setupMessages.Add(StartGame(clock.GetTime()));
+            return setupMessages;
+        }
+
+        /// <summary>
+        /// Creates a message for starting the game
+        /// </summary>
+        /// <param name="client">The client sending to, which ping is used to estimate the time</param>
+        /// <returns></returns>
+        private Message_ServerComand_StartGame StartGame(double clockTime)
+        {
+            return factoryStartGame.Create_Message_ServerCommand_StartGame(clockTime);
         }
 
         /// <summary>
