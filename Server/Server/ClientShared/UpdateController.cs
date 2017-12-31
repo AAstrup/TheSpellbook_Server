@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class UpdateController
 {
-    private List<IUpdatable> updatables;
+    private List<IUpdatableDeltaTime> updatables;
 
     public UpdateController()
     {
-        updatables = new List<IUpdatable>();
+        updatables = new List<IUpdatableDeltaTime>();
     }
 
     public void Update(float deltaTime)
@@ -23,7 +23,7 @@ public class UpdateController
         }
     }
 
-    public void Add(IUpdatable updatable)
+    public void Add(IUpdatableDeltaTime updatable)
     {
         updatables.Add(updatable);
     }

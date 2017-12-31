@@ -60,6 +60,8 @@
     <Compile Include="Message_Responses\Match\Message_Response_GameAllConnected.cs" />
     <Compile Include="Message_Responses\MatchMaker\Message_ClientResponse_ReadyCheck.cs" />
     <Compile Include="Message_Updates\Match\Message_Update_MatchFinished.cs" />
+    <Compile Include="Common\IUpdatable.cs" />
+    <Compile Include="Common\Updater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Message_Responses\MatchMaker\Message_Response_InQueue.cs" />
     <Compile Include="Message_Updates\Match\Message_Update_MatchFound.cs" />

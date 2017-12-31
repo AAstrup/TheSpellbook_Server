@@ -19,11 +19,11 @@ namespace Match
         public List<int> remainingPlayerGUIDsToConnect;
         private int port;
         private ServerCore server;
-        private bool gameHasEnded;
         private List<Shared_PlayerInfo> clientsInfo;
         public Updater updater;
         public Clock clock;
-        public PingDeterminer pingDeterminer; 
+        public PingDeterminer pingDeterminer;
+        private int timeClientsHaveToConnectWithin = 10000;
 
         /// <summary>
         /// Creates a new Match class which can be used for running a server for a match
@@ -60,13 +60,12 @@ namespace Match
             MatchGameMessageHandler matchGameHandler = new MatchGameMessageHandler(logger,this);
             MatchServerCoreEventHandler eventHandler = new MatchServerCoreEventHandler();
             server = new ServerCore(matchGameHandler,new ServerConnectionInfo(port),logger, eventHandler);
-            pingDeterminer = new PingDeterminer(server.clientManager, clock);
+            pingDeterminer = new PingDeterminer(server.clientManager, server.messageSender, miliSecondPerTick, clock, updater);
             matchGameHandler.Init(serverExtensions, clock, eventHandler);
             var time = clock.GetTime();
 
-            while (!gameHasEnded)
+            while (server.clientManager.GetClients().Count > 0 || timeClientsHaveToConnectWithin > clock.GetTime())
             {
-                clock.PRINT();
                 updater.Update();
                 server.Update();
                 System.Threading.Thread.Sleep(miliSecondPerTick);

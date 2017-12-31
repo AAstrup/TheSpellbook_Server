@@ -16,6 +16,7 @@ public class Server_ServerClient
 
     double? cachedPing;
     List<double> pingsRecorded;
+    double lastPingTimeStamp;
     static int totalPingsRecordedPerPlayer = 5;
     
     /// <summary>
@@ -65,8 +66,9 @@ public class Server_ServerClient
     /// Update the ping of the player with an updated value
     /// </summary>
     /// <param name="pingUpdate"></param>
-    public void UpdatePing(double pingUpdate)
+    public void UpdatePing(double pingUpdate, double clockTimeStamp)
     {
+        lastPingTimeStamp = clockTimeStamp;
         pingsRecorded.Add(pingUpdate);
         if(totalPingsRecordedPerPlayer < pingsRecorded.Count)
         {
@@ -78,5 +80,13 @@ public class Server_ServerClient
     public bool HasSufficientPingsRecorded()
     {
         return pingsRecorded.Count >= totalPingsRecordedPerPlayer; 
+    }
+
+    public double GetLastPingTimeStamp()
+    {
+        if (pingsRecorded.Count == 0)
+            return double.PositiveInfinity;
+        else
+            return lastPingTimeStamp;
     }
 }

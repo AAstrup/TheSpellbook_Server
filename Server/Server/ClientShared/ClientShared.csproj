@@ -42,9 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Counter.cs" />
-    <Compile Include="IUpdatable.cs" />
+    <Compile Include="IUpdatableDeltaTime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Messages\ClientServerShared.csproj">
+      <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
+      <Name>ClientServerShared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

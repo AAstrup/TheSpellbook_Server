@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Counter : IUpdatable
+public class Counter : IUpdatableDeltaTime
 {
     private float totalDuration;
     public float duration;

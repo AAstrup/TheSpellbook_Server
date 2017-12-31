@@ -29,11 +29,5 @@ namespace Match
         }
 
         double lastPrint;
-        public void PRINT()
-        {
-            if (Math.Floor(GetTime()/1000.0) > lastPrint){
-                lastPrint = Math.Floor(GetTime() / 1000.0);
-            }
-        }
     }
 }

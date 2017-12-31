@@ -49,7 +49,7 @@ namespace Match
                     matchThread.RegisterClientInfo(client);
                 }
             }
-            SendPing(client);
+            matchThread.pingDeterminer.SendPing(client);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Match
                     if (matchThread.clock.GetTime() > (lastPingTime[player.Value] + timeBetweenInitialPings))
                     {
                         lastPingTime[player.Value] = matchThread.clock.GetTime();
-                        SendPing(player.Value);
+                        matchThread.pingDeterminer.SendPing(player.Value);
                     }
                 }
             }
@@ -75,19 +75,6 @@ namespace Match
                 ready = false;
             if (ready)
                 StartGame();
-        }
-
-        /// <summary>
-        /// Sends a ping message to a player
-        /// </summary>
-        /// <param name="player"></param>
-        private void SendPing(Server_ServerClient player)
-        {
-            Message_ServerRoundTrip_Ping msg = new Message_ServerRoundTrip_Ping()
-            {
-                timeSend = matchThread.clock.GetTime()
-            };
-            matchThread.GetServer().messageSender.Send(msg, player);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿public interface IUpdatable
+﻿public interface IUpdatableDeltaTime
 {
     void Update(float deltaTime);
     bool HasExpired();

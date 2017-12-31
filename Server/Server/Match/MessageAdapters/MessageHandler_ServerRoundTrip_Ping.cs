@@ -27,7 +27,7 @@ namespace Match
         public void Handle(object objData, Server_ServerClient client)
         {
             float ping = (matchThread.clock.GetTime() -((Message_ServerRoundTrip_Ping)objData).timeSend) /2;
-            client.UpdatePing(Math.Ceiling(ping));
+            client.UpdatePing(Math.Ceiling(ping), matchThread.clock.GetTime());
         }
     }
 }
