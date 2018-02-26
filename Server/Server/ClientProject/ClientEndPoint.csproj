@@ -66,9 +66,9 @@
       <Project>{3622450d-6a4e-4e35-8c4b-4867754628da}</Project>
       <Name>ClientShared</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Messages\ClientServerShared.csproj">
+    <ProjectReference Include="..\SharedClientServer\SharedClientServer.csproj">
       <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
-      <Name>ClientServerShared</Name>
+      <Name>SharedClientServer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

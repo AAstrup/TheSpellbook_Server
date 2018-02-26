@@ -69,9 +69,9 @@
     <Compile Include="Shared\Shared_PlayerInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClientServerSharedGameObjectMessages\ClientServerSharedGameObjectMessages.csproj">
-      <Project>{B4FABB13-EF8F-43F6-BE5F-C143B768D531}</Project>
-      <Name>ClientServerSharedGameObjectMessages</Name>
+    <ProjectReference Include="..\SharedClientServerGameObjectMessages\SharedClientServerGameObjectMessages.csproj">
+      <Project>{b4fabb13-ef8f-43f6-be5f-c143b768d531}</Project>
+      <Name>SharedClientServerGameObjectMessages</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

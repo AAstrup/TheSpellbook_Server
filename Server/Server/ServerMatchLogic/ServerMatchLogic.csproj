@@ -48,14 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClientServerSharedGameObjectMessages\ClientServerSharedGameObjectMessages.csproj">
-      <Project>{b4fabb13-ef8f-43f6-be5f-c143b768d531}</Project>
-      <Name>ClientServerSharedGameObjectMessages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Messages\ClientServerShared.csproj">
-      <Project>{193E81AB-FECC-4C90-9ABF-4B63426005AB}</Project>
-      <Name>ClientServerShared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServerExtensionTools\ServerExtensionTools.csproj">
       <Project>{83a5dfa3-e765-4b8a-91e6-84fecd41a489}</Project>
       <Name>ServerExtensionTools</Name>
@@ -64,9 +56,13 @@
       <Project>{903c35f9-8c3b-49ce-a8b7-2f27090f8296}</Project>
       <Name>ServerGameObjectExtension</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Server\ServerEndPoint.csproj">
+    <ProjectReference Include="..\ServerEndPoint\ServerEndPoint.csproj">
       <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
       <Name>ServerEndPoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharedClientServer\SharedClientServer.csproj">
+      <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
+      <Name>SharedClientServer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -14,7 +14,7 @@ public class ServerCore
     private ServerConnectionInfo connectionInfo;
     public IServerEventHandler eventHandler;
 
-    public ServerCore(IMessageHandler messageHandler,ServerConnectionInfo connectionInfo,ILogger logger, IServerEventHandler eventHandler = null)
+    public ServerCore(IMessageHandler messageHandler, ServerConnectionInfo connectionInfo, ILogger logger, IServerEventHandler eventHandler = null)
     {
         gameInfo = new Server_GameInfo();
         clientManager = new Server_ClientManager(this);

@@ -10,6 +10,7 @@ namespace DatabaseConnector
     {
         /// <summary>
         /// Get the connection to the server
+        /// This is obviously temporary login information and implementation
         /// </summary>
         /// <returns></returns>
         public static SqlConnection GetConnection()
