@@ -68,6 +68,11 @@
     <Compile Include="RoundTrip\Message_ServerRoundTrip_Ping.cs" />
     <Compile Include="Shared\Shared_PlayerInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ClientServerSharedGameObjectMessages\ClientServerSharedGameObjectMessages.csproj">
+      <Project>{B4FABB13-EF8F-43F6-BE5F-C143B768D531}</Project>
+      <Name>ClientServerSharedGameObjectMessages</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

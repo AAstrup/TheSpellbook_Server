@@ -37,7 +37,7 @@ namespace ServerGameObjectExtension
                 var score = new PlayerScore()
                 {
                     guid = server.clientManager.GetClients()[i].info.GUID,
-                    score = 0
+                    roundsWon = 0
                 };
                 playerToScore.Add(server.clientManager.GetClients()[i], score);
                 scores.Add(score);
@@ -51,7 +51,7 @@ namespace ServerGameObjectExtension
 
         public void Handle(object objData, Server_ServerClient client)
         {
-            playerToScore[client].score++;
+            playerToScore[client].roundsWon++;
             if (round == maxRounds)
             {
                 GameOver();
@@ -85,7 +85,7 @@ namespace ServerGameObjectExtension
 
         private void GameOver()
         {
-            scores.Sort((x, y) => x.score.CompareTo(y.score));
+            scores.Sort((x, y) => x.roundsWon.CompareTo(y.roundsWon));
 
             foreach (KeyValuePair<Server_ServerClient,PlayerScore> player in playerToScore)
             {
@@ -107,9 +107,9 @@ namespace ServerGameObjectExtension
             }
         }
 
-        private void SendResultMessage(Server_ServerClient client,PlayerScore playerScore,bool won)
+        private void SendResultMessage(Server_ServerClient client, PlayerScore playerScore,bool won)
         {
-            Message_Update_MatchFinished msg = new Message_Update_MatchFinished(won);
+            Message_Update_MatchFinished msg = new Message_Update_MatchFinished(won, playerScore);
             server.messageSender.Send(msg, client);
         }
 

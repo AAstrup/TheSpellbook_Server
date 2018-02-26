@@ -6,6 +6,6 @@ namespace ServerGameObjectExtension
     public class PlayerScore
     {
         public int guid;
-        public int score;
+        public int roundsWon;
     }
 }
