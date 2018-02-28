@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C2C6C1A-6C69-4F06-847F-3FB13008ED60}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MatchMaker</RootNamespace>
+    <AssemblyName>MatchMaker</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="MatchMakerConfig.cs" />
+    <Compile Include="MessageHandlers\MessageHandler_Request_JoinQueue.cs" />
+    <Compile Include="MatchMakerCore.cs" />
+    <Compile Include="MessageHandlers\MessageHandler_Request_LeaveQueue.cs" />
+    <Compile Include="MessageHandlers\MessageHandler_Response_ReadyCheck.cs" />
+    <Compile Include="MessageHandlers\Server_MessageHandler.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\ServerExtensionTools\ServerExtensionTools.csproj">
+      <Project>{bda482ab-b677-4a54-b439-3c5318a6c577}</Project>
+      <Name>ServerExtensionTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\SharedClientServer\SharedClientServer.csproj">
+      <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
+      <Name>SharedClientServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerDatabaseLogic\ServerDatabaseLogic.csproj">
+      <Project>{e343a72b-3c72-4439-8df3-bdf6a23ad619}</Project>
+      <Name>ServerDatabaseLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerEndPoint\ServerEndPoint.csproj">
+      <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
+      <Name>ServerEndPoint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerMatchLogic\ServerMatchLogic.csproj">
+      <Project>{d9ca2d4d-1048-4f0e-b21a-139700a8352e}</Project>
+      <Name>ServerMatchLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>Powershell -File "C:\Users\Bruger\Documents\UnityProjects\HungryHungryCar_Server\Server\Server\Misc\MoveDLLToUnity.ps1"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

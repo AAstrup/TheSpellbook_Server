@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9CA2D4D-1048-4F0E-B21A-139700A8352E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MatchServer</RootNamespace>
+    <AssemblyName>MatchServer</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Handlers\MessageHandler_Request_JoinGame.cs" />
+    <Compile Include="Factories\MatchExtensionFactory.cs" />
+    <Compile Include="MatchServerCoreEventHandler.cs" />
+    <Compile Include="MessageAdapters\MatchGameMessageHandler.cs" />
+    <Compile Include="MatchThread.cs" />
+    <Compile Include="MessageAdapters\MessageHandler_ServerRoundTrip_Ping.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\ServerExtensionTools\ServerExtensionTools.csproj">
+      <Project>{BDA482AB-B677-4A54-B439-3C5318A6C577}</Project>
+      <Name>ServerExtensionTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extensions\ServerGameObjectExtension\ServerGameObjectExtension.csproj">
+      <Project>{fe073fd5-d163-4696-967e-12df94357361}</Project>
+      <Name>ServerGameObjectExtension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\SharedClientServer\SharedClientServer.csproj">
+      <Project>{193e81ab-fecc-4c90-9abf-4b63426005ab}</Project>
+      <Name>SharedClientServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerEndPoint\ServerEndPoint.csproj">
+      <Project>{0caadf03-b6d9-4df4-88ef-07955ea59adc}</Project>
+      <Name>ServerEndPoint</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
