@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="BakBackup\backup.bak" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
